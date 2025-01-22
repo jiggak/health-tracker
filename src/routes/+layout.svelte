@@ -1,24 +1,27 @@
 <script lang="ts">
    import "../app.css";
+   import Icon from "../Icon.svelte";
 
    import { page } from '$app/state';
-   // page.url.pathname
 
    let { children } = $props();
 </script>
 
 {@render children()}
 
-<div class="dock">
-   <a href="/" class="dock-active">
+<div class="dock" class:hidden={page.url.pathname == '/log'}>
+   <a href="/" class:dock-active={page.url.pathname == '/'}>
+      <Icon name="home" />
       <span class="dock-label">Home</span>
    </a>
 
-   <button>
+   <a href="/log">
+      <Icon name="plus" />
       <span class="dock-label">Add</span>
-   </button>
+   </a>
 
-   <button>
+   <a href="/history" class:dock-active={page.url.pathname == '/history'}>
+      <Icon name="calendar" />
       <span class="dock-label">History</span>
-   </button>
+   </a>
 </div>
