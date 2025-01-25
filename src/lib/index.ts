@@ -1,1 +1,84 @@
 // place files you want to import through the `$lib` alias in this folder.
+
+export interface Metric {
+   label: string;
+   metricType: MetricType;
+   options?: MetricOption[];
+   tags: boolean;
+   favourites: boolean;
+   recents?: number;
+}
+
+export enum MetricType {
+   Text = 'text',
+   Note = 'note',
+   SingleOption = 'option',
+   MultiOption = 'multi',
+   Range = 'range'
+}
+
+export interface MetricOption {
+   label: string;
+   value: number|string;
+}
+
+export class LogEntry {
+   metric: Metric;
+   value?: string|number;
+   tags: string[];
+
+   constructor(metric:Metric) {
+      this.metric = metric;
+      this.tags = [];
+   }
+}
+
+export const sampleMetrics:Metric[] = [
+   {
+      label: 'Stool',
+      metricType: MetricType.SingleOption,
+      options: [
+         { label: 'None', value: 0, },
+         { label: 'Separate hard lumps', value: 1 },
+         { label: 'Sausage shaped with cracks', value: 2 },
+         { label: 'Smooth sausage shaped', value: 3 },
+         { label: 'Soft blobs clear cut edges', value: 4 },
+         { label: 'Soft blobs clear cut edges', value: 5 },
+         { label: 'Mushy with ragged edges', value: 6 },
+         { label: 'Liquid with no solids', value: 7 },
+      ],
+      tags: true,
+      favourites: false
+   },
+   {
+      label: 'Sleep',
+      metricType: MetricType.Range,
+      options: [
+         { label: 'Hour or less', value: 1 },
+         { label: '2 hours', value: 2 },
+         { label: '3 hours', value: 3 },
+         { label: '4 hours', value: 4 },
+         { label: '5 hours', value: 5 },
+         { label: '6 hours', value: 6 },
+         { label: '7 hours', value: 7 },
+         { label: '8 hours', value: 8 },
+         { label: '9 hours', value: 9 },
+         { label: 'More than 9 hours', value: 10 },
+      ],
+      tags: true,
+      favourites: false
+   },
+   {
+      label: 'Food',
+      metricType: MetricType.Text,
+      tags: true,
+      favourites: true
+   },
+   {
+      label: 'Medication',
+      metricType: MetricType.Text,
+      tags: false,
+      favourites: false,
+      recents: 5
+   }
+];
