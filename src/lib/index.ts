@@ -24,16 +24,18 @@ export interface MetricOption {
 
 export class LogEntry {
    metric: Metric;
+   time: Date;
    value?: string|number;
    tags: string[];
 
    constructor(metric:Metric) {
       this.metric = metric;
+      this.time = new Date();
       this.tags = [];
    }
 }
 
-export const sampleMetrics:Metric[] = [
+export const samples:Metric[] = [
    {
       label: 'Stool',
       metricType: MetricType.SingleOption,
@@ -43,9 +45,8 @@ export const sampleMetrics:Metric[] = [
          { label: 'Sausage shaped with cracks', value: 2 },
          { label: 'Smooth sausage shaped', value: 3 },
          { label: 'Soft blobs clear cut edges', value: 4 },
-         { label: 'Soft blobs clear cut edges', value: 5 },
-         { label: 'Mushy with ragged edges', value: 6 },
-         { label: 'Liquid with no solids', value: 7 },
+         { label: 'Mushy with ragged edges', value: 5 },
+         { label: 'Liquid with no solids', value: 6 },
       ],
       tags: true,
       favourites: false

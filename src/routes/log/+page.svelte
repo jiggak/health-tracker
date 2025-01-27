@@ -1,16 +1,17 @@
 <script lang="ts">
+   import Entry from './Entry.svelte';
    import { goto } from "$app/navigation";
-   import { sampleMetrics, LogEntry } from "$lib";
+   import { samples, LogEntry } from "$lib";
 
    function onCancel() {
       goto('/');
    }
 
-   const logs = sampleMetrics.map(m => new LogEntry(m));
+   const entries = samples.map(m => new LogEntry(m));
    let selected = 0;
 </script>
 
-<div class="navbar bg-base-100 shadow-sm">
+<div class="navbar bg-base-100 shadow-md">
    <div class="navbar-start">
       <button class="btn" onclick={onCancel}>Cancel</button>
    </div>
@@ -20,13 +21,13 @@
    </div>
 </div>
 
-<p>{logs[selected].metric.label}</p>
+<Entry entry={entries[selected]} />
 
 <div class="dock justify-start">
-   {#each logs as log, i}
+   {#each entries as entry, i}
       <button onclick={() => selected = i} class:dock-active={i == selected}>
          <!-- <Icon name="home" /> -->
-         <span class="dock-label">{log.metric.label}</span>
+         <span class="dock-label">{entry.metric.label}</span>
       </button>
    {/each}
 </div>
