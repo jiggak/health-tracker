@@ -4,7 +4,7 @@ export interface Metric {
    label: string;
    metricType: MetricType;
    options?: MetricOption[];
-   tags: boolean;
+   tags?: string[];
    favourites: boolean;
    recents?: number;
 }
@@ -48,12 +48,12 @@ export const samples:Metric[] = [
          { label: 'Mushy with ragged edges', value: 5 },
          { label: 'Liquid with no solids', value: 6 },
       ],
-      tags: true,
+      tags: ['Mucus', 'Tiny', 'Low', 'Medium', 'Large', 'Thin'],
       favourites: false
    },
    {
       label: 'Sleep',
-      metricType: MetricType.Range,
+      metricType: MetricType.SingleOption,
       options: [
          { label: 'Hour or less', value: 1 },
          { label: '2 hours', value: 2 },
@@ -66,19 +66,22 @@ export const samples:Metric[] = [
          { label: '9 hours', value: 9 },
          { label: 'More than 9 hours', value: 10 },
       ],
-      tags: true,
+      tags: [
+         'difficulty falling asleep',
+         'waking during sleep',
+         'toss & turn'
+      ],
       favourites: false
    },
    {
       label: 'Food',
       metricType: MetricType.Text,
-      tags: true,
+      tags: [],
       favourites: true
    },
    {
       label: 'Medication',
       metricType: MetricType.Text,
-      tags: false,
       favourites: false,
       recents: 5
    }

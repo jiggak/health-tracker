@@ -1,11 +1,13 @@
 <script lang="ts">
-    import { MetricType, type LogEntry } from "$lib";
+   import { MetricType, type LogEntry } from "$lib";
+   import Tags from './Tags.svelte';
 
-   let { entry }:{
+   let { entry }: {
       entry: LogEntry
    } = $props();
 
    let value = $state(entry.value);
+   let tags = $state(entry.tags);
 </script>
 
 <p>{entry.metric.label}</p>
@@ -22,4 +24,11 @@
    </ul>
 {:else if entry.metric.metricType == MetricType.Text}
    <input class="input" type="text" />
+{/if}
+
+{#if entry.metric.tags}
+   <Tags
+      tags={entry.metric.tags}
+      values={tags}
+      onValuesChanged={(val) => tags = val} />
 {/if}
