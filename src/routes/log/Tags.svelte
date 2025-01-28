@@ -1,9 +1,13 @@
 <script lang="ts">
+   import TagsEditor from "./TagsEditor.svelte";
+
    let { tags, values, onValuesChanged }: {
       tags: string[],
       values: string[],
       onValuesChanged(tags:string[]):void
    } = $props();
+
+   let tagsEditor:TagsEditor;
 
    function tagSelected(tag:string) {
       return values.indexOf(tag) >= 0;
@@ -29,4 +33,14 @@
    </button>
 {/each}
 
-<button class="btn badge badge-primary badge-dash">Add/Edit Tags</button>
+<button
+   class="btn badge badge-primary badge-dash"
+   onclick={() => tagsEditor.open(tags)}>
+
+   Add/Edit Tags
+</button>
+
+<TagsEditor
+   bind:this={tagsEditor}
+   onSaveTags={(tags_) => tags = tags_}
+/>
