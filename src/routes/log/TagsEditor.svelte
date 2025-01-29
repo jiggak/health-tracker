@@ -44,30 +44,35 @@
       </div>
    </div>
 
-   <div class="join">
-      <input bind:this={newTag}
-         class="input input-bordered join-item"
-         placeholder="New tag" />
+   <div class="p-4">
+      <div class="join w-full">
+         <input bind:this={newTag}
+            class="input input-bordered join-item w-full"
+            placeholder="New tag" />
 
-      <button
-         class="btn join-item rounded-r-full"
-         onclick={() => addTag(newTag.value)}>
+         <button
+            class="btn btn-secondary join-item rounded-r-full"
+            onclick={() => addTag(newTag.value)}>
 
-         Add
-      </button>
+            Add
+         </button>
+      </div>
+
+      <ul class="list bg-base-100 rounded-box shadow-md">
+         {#each tags as tag}
+            <li class="list-row">
+               <div class="list-col-grow flex flex-col justify-center">
+                  <span>{tag}</span>
+               </div>
+               <button
+                  class="btn btn-square btn-neutral btn-xs"
+                  onclick={() => deleteTag(tag)}>
+
+                  <Icon name="trash" svgClass="size-4" />
+               </button>
+            </li>
+         {/each}
+      </ul>
    </div>
-
-   <ul class="list bg-base-100 rounded-box shadow-md">
-      {#each tags as tag}
-         <li class="list-row">
-            <div class="list-col-grow">
-               {tag}
-            </div>
-            <button class="btn btn-square btn-ghost" onclick={() => deleteTag(tag)}>
-               <Icon name="trash" />
-            </button>
-         </li>
-      {/each}
-   </ul>
 </Modal>
 

@@ -15,7 +15,7 @@
 </script>
 
 <dialog class="modal" bind:this={dialog}>
-   <div class="modal-box w-full h-full">
+   <div class="modal-box w-full h-full p-0">
       {@render children?.()}
    </div>
 </dialog>
