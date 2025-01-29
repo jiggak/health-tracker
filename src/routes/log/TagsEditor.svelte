@@ -12,6 +12,7 @@
 
    export function open(tags_:string[]) {
       tags = tags_;
+      newTag.value = '';
       modal.open();
    }
 
