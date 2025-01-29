@@ -40,7 +40,7 @@
       </div>
 
       <div class="navbar-end">
-         <button class="btn" onclick={save}>Save</button>
+         <button class="btn btn-primary" onclick={save}>Save</button>
       </div>
    </div>
 

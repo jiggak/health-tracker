@@ -23,22 +23,24 @@
    }
 </script>
 
-{#each tags as tag}
+<div class="flex flex-wrap gap-2">
+   {#each tags as tag}
+      <button
+         class="btn badge badge-primary"
+         class:badge-outline={!tagSelected(tag)}
+         onclick={() => toggleTag(tag)}>
+
+         {tag}
+      </button>
+   {/each}
+
    <button
-      class="btn badge badge-primary"
-      class:badge-outline={!tagSelected(tag)}
-      onclick={() => toggleTag(tag)}>
+      class="btn badge badge-primary badge-dash"
+      onclick={() => tagsEditor.open(tags)}>
 
-      {tag}
+      Add/Edit Tags
    </button>
-{/each}
-
-<button
-   class="btn badge badge-primary badge-dash"
-   onclick={() => tagsEditor.open(tags)}>
-
-   Add/Edit Tags
-</button>
+</div>
 
 <TagsEditor
    bind:this={tagsEditor}

@@ -17,7 +17,7 @@
    </div>
 
    <div class="navbar-end">
-      <button class="btn">Save All</button>
+      <button class="btn btn-primary">Save All</button>
    </div>
 </div>
 

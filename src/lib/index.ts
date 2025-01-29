@@ -22,6 +22,11 @@ export interface MetricOption {
    value: number|string;
 }
 
+export function getOptionLabel(options:MetricOption[], value?:number|string) {
+   const opt = options.find(o => o.value == value)
+   return opt != null? opt.label : null;
+}
+
 export class LogEntry {
    metric: Metric;
    time: Date;
