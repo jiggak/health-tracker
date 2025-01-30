@@ -2,12 +2,9 @@
    import { getOptionLabel, MetricType, type LogEntry } from "$lib";
    import Tags from './Tags.svelte';
 
-   let { entry }: {
+   let { entry = $bindable() }: {
       entry: LogEntry
    } = $props();
-
-   let value = $state(entry.value);
-   let tags = $state(entry.tags);
 </script>
 
 <div class="flex flex-col gap-4 m-4">
@@ -16,14 +13,14 @@
    <div>
       {#if entry.metric.metricType == MetricType.SingleOption}
          <p class="h-8 text-center">
-            {getOptionLabel(entry.metric.options!, value)}
+            {getOptionLabel(entry.metric.options!, entry.value)}
          </p>
          <ul class="steps">
             {#each entry.metric.options! as option}
                <li data-content="●"
                   class="step"
-                  class:step-primary={value == option.value}
-                  onclick={() => value = option.value}>
+                  class:step-primary={entry.value == option.value}
+                  onclick={() => entry.value = option.value}>
                </li>
             {/each}
          </ul>
@@ -35,7 +32,8 @@
    {#if entry.metric.tags}
       <Tags
          tags={entry.metric.tags}
-         values={tags}
-         onValuesChanged={(val) => tags = val} />
+         onTagsChanged={(tags) => entry.metric.tags = tags}
+         values={entry.tags}
+         onValuesChanged={(tags) => entry.tags = tags} />
    {/if}
 </div>

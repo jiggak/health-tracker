@@ -12,12 +12,7 @@
 
    export function open(tags_:string[]) {
       tags = tags_;
-      newTag.value = '';
       modal.open();
-   }
-
-   function close() {
-      modal.close();
    }
 
    function save() {
@@ -31,13 +26,14 @@
 
    function addTag(tag:string) {
       tags = [...tags, tag];
+      newTag.value = '';
    }
 </script>
 
 <Modal bind:this={modal}>
    <div class="navbar bg-base-100 shadow-md">
       <div class="navbar-start">
-         <button class="btn" onclick={close}>Cancel</button>
+         <button class="btn" onclick={() => modal.close()}>Cancel</button>
       </div>
 
       <div class="navbar-end">

@@ -21,7 +21,7 @@
    </div>
 </div>
 
-<Entry entry={entries[selected]} />
+<Entry bind:entry={entries[selected]} />
 
 <div class="dock justify-start">
    {#each entries as entry, i}

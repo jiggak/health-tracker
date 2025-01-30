@@ -1,9 +1,10 @@
 <script lang="ts">
    import TagsEditor from "./TagsEditor.svelte";
 
-   let { tags, values, onValuesChanged }: {
+   let { tags, values, onTagsChanged, onValuesChanged }: {
       tags: string[],
       values: string[],
+      onTagsChanged(tags:string[]):void,
       onValuesChanged(tags:string[]):void
    } = $props();
 
@@ -44,5 +45,5 @@
 
 <TagsEditor
    bind:this={tagsEditor}
-   onSaveTags={(tags_) => tags = tags_}
+   onSaveTags={onTagsChanged}
 />
