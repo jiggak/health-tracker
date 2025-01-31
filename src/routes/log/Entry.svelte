@@ -25,7 +25,7 @@
             {/each}
          </ul>
       {:else if entry.metric.metricType == MetricType.Text}
-         <input class="input" type="text" />
+         <input class="input w-full" type="text" />
       {/if}
    </div>
 

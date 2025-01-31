@@ -7,6 +7,7 @@ export interface Metric {
    tags?: string[];
    favourites: boolean;
    recents?: number;
+   units?: string[];
 }
 
 export enum MetricType {
@@ -14,7 +15,7 @@ export enum MetricType {
    Note = 'note',
    SingleOption = 'option',
    MultiOption = 'multi',
-   Range = 'range'
+   Quantity = 'quantity'
 }
 
 export interface MetricOption {
@@ -86,7 +87,20 @@ export const samples:Metric[] = [
    },
    {
       label: 'Medication',
-      metricType: MetricType.Text,
+      metricType: MetricType.Quantity,
+      units: [
+         'capsule',
+         'drop',
+         'ml',
+         'oz',
+         'mg',
+         'mcg',
+         'pc',
+         'pill',
+         'scoop',
+         'tsp',
+         'tbsp'
+      ],
       favourites: false,
       recents: 5
    }

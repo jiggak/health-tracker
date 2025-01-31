@@ -28,6 +28,12 @@
       tags = [...tags, tag];
       newTag.value = '';
    }
+
+   function onNewTagKeyPress(e:KeyboardEvent) {
+      if (e.key === 'Enter') {
+         addTag(newTag.value);
+      }
+   }
 </script>
 
 <Modal bind:this={modal}>
@@ -44,6 +50,7 @@
    <div class="p-4">
       <div class="join w-full">
          <input bind:this={newTag}
+            onkeydown={onNewTagKeyPress}
             class="input input-bordered join-item w-full"
             placeholder="New tag" />
 
