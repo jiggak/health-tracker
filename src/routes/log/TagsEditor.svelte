@@ -25,6 +25,12 @@
    }
 
    function addTag(tag:string) {
+      tag = tag.trim();
+
+      if (tag == '' || tags.includes(tag)) {
+         return;
+      }
+
       tags = [...tags, tag];
       newTag.value = '';
    }
@@ -55,7 +61,7 @@
             placeholder="New tag" />
 
          <button
-            class="btn btn-secondary join-item rounded-r-full"
+            class="btn btn-secondary join-item"
             onclick={() => addTag(newTag.value)}>
 
             Add
