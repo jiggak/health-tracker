@@ -1,5 +1,5 @@
 <script lang="ts">
-   import { getOptionLabel, MetricType, type LogEntry } from "$lib";
+   import { MetricType, type LogEntry } from "$lib";
    import Tags from './Tags.svelte';
 
    let { entry = $bindable() }: {
@@ -13,7 +13,7 @@
    <div>
       {#if entry.metric.metricType == MetricType.SingleOption}
          <p class="h-8 text-center">
-            {getOptionLabel(entry.metric.options!, entry.value)}
+            {entry.selectedOption()}
          </p>
          <ul class="steps">
             {#each entry.metric.options! as option}
