@@ -23,10 +23,16 @@ export interface MetricOption {
    value: number|string;
 }
 
+export interface QuantityValue {
+   name: string;
+   amount: number;
+   unit: string;
+}
+
 export class LogEntry {
    metric: Metric;
    time: Date;
-   value?: string|number;
+   value?: string|number|QuantityValue;
    tags: string[];
 
    constructor(metric:Metric) {
