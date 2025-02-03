@@ -56,6 +56,13 @@ export class LogEntry {
 
       return this.value as LogValue[];
    }
+
+   dirty() {
+      if (Array.isArray(this.value)) {
+         return (this.value as LogValue[]).length > 0;
+      }
+      return this.value;
+   }
 }
 
 export const samples:Metric[] = [

@@ -25,9 +25,15 @@
 
 <div class="dock justify-start">
    {#each entries as entry, i}
-      <button onclick={() => selected = i} class:dock-active={i == selected}>
-         <!-- <Icon name="home" /> -->
-         <span class="dock-label">{entry.metric.label}</span>
-      </button>
+      <div class="indicator" class:dock-active={i == selected}>
+         <span
+            class="indicator-item indicator-center status status-info"
+            class:hidden={!entry.dirty()}></span>
+
+         <button onclick={() => selected = i}>
+            <!-- <Icon name="home" /> -->
+            <span class="dock-label">{entry.metric.label}</span>
+         </button>
+      </div>
    {/each}
 </div>

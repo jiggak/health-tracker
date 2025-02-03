@@ -3,23 +3,23 @@
    import Icon from '../../Icon.svelte';
    import Quantity from './Quantity.svelte';
 
-   let { metric, values, onValuesChange }: {
+   let { metric, values, onValuesChanged }: {
       metric: Metric,
       values: LogValue[],
-      onValuesChange(values:LogValue[]): void
+      onValuesChanged(values:LogValue[]): void
    } = $props();
 
    let newValue:LogValue | undefined = $state();
 
    function addValue() {
       if (newValue) {
-         onValuesChange([...values, newValue]);
+         onValuesChanged([...values, newValue]);
          newValue = undefined;
       }
    }
 
    function removeValue(val:LogValue) {
-      onValuesChange(values.filter((v) => v !== val));
+      onValuesChanged(values.filter((v) => v !== val));
    }
 
    function value(v:QuantityValue) {

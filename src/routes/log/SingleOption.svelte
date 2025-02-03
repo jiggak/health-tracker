@@ -1,10 +1,10 @@
 <script lang="ts">
    import type { LogValue, MetricOption } from '$lib';
 
-   let { options, value, onValueChange }: {
+   let { options, value, onValueChanged  }: {
       options: MetricOption[],
       value?: LogValue,
-      onValueChange(v:LogValue): void
+      onValueChanged(v:LogValue): void
    } = $props();
 
    function selectedOption() {
@@ -21,7 +21,7 @@
       <li data-content="●"
          class="step"
          class:step-primary={value == option.value}
-         onclick={() => onValueChange(option.value)}>
+         onclick={() => onValueChanged(option.value)}>
       </li>
    {/each}
 </ul>

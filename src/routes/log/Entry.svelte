@@ -17,14 +17,14 @@
          <SingleOption
             options={entry.metric.options!}
             value={entry.value as LogValue}
-            onValueChange={(v) => entry.value = v} />
+            onValueChanged={(v) => entry.value = v} />
       {:else if entry.metric.metricType == MetricType.Text}
          <input class="input w-full" type="text" bind:value={entry.value} />
       {:else if entry.metric.metricType == MetricType.NamedQuantity}
          <QuantityList
             metric={entry.metric}
             values={entry.values()}
-            onValuesChange={(v) => entry.value = v} />
+            onValuesChanged={(v) => entry.value = v} />
       {:else if entry.metric.metricType == MetricType.Note}
          <textarea class="textarea w-full" bind:value={entry.value}></textarea>
       {/if}
