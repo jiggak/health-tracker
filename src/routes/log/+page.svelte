@@ -1,7 +1,7 @@
 <script lang="ts">
    import Entry from './Entry.svelte';
-   import { goto } from "$app/navigation";
-   import { samples, LogEntry } from "$lib";
+   import { goto } from '$app/navigation';
+   import { samples, LogEntry } from '$lib';
 
    function onCancel() {
       goto('/');

@@ -1,6 +1,6 @@
 <script lang="ts">
    import Modal from '$lib/Modal.svelte';
-   import Icon from '../../Icon.svelte';
+   import Icon from '$lib/Icon.svelte';
 
    let { onSaveTags }: {
       onSaveTags(tags:string[]):void

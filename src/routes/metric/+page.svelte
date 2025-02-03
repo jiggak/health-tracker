@@ -1,5 +1,5 @@
 <script lang="ts">
-   import { MetricType } from "$lib";
+   import { MetricType } from '$lib';
 </script>
 
 <fieldset class="fieldset">

@@ -1,5 +1,5 @@
 <script lang="ts">
-   import TagsEditor from "./TagsEditor.svelte";
+   import TagsEditor from './TagsEditor.svelte';
 
    let { tags, values, onTagsChanged, onValuesChanged }: {
       tags: string[],

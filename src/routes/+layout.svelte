@@ -1,6 +1,6 @@
 <script lang="ts">
-   import "../app.css";
-   import Icon from "../Icon.svelte";
+   import '../app.css';
+   import Icon from '$lib/Icon.svelte';
 
    import { page } from '$app/state';
 

@@ -1,6 +1,6 @@
 <script lang="ts">
    import type { LogValue, Metric, QuantityValue } from '$lib';
-   import Icon from '../../Icon.svelte';
+   import Icon from '$lib/Icon.svelte';
    import Quantity from './Quantity.svelte';
 
    let { metric, values, onValuesChanged }: {
