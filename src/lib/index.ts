@@ -120,5 +120,10 @@ export const samples:Metric[] = [
       ],
       favourites: false,
       recents: 5
+   },
+   {
+      label: 'Notes',
+      metricType: MetricType.Note,
+      favourites: false
    }
 ];
