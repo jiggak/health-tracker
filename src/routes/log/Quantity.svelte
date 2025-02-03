@@ -1,9 +1,10 @@
 <script lang="ts">
    import { type QuantityValue } from '$lib';
 
-   let { units, value = $bindable() }: {
+   let { units, value, onValueChange }: {
       units: string[],
-      value?: QuantityValue
+      value?: QuantityValue,
+      onValueChange(v:QuantityValue): void
    } = $props();
 
    let name:HTMLInputElement;
@@ -12,19 +13,21 @@
 
    function onFieldChange(e:Event) {
       if (name.checkValidity() && amount.checkValidity() && unit.checkValidity()) {
-         value = {
+         onValueChange({
             name: name.value,
-            amount: parseInt(amount.value),
+            amount: amount.valueAsNumber,
             unit: unit.value
-         };
+         });
       }
    }
 
    $effect(() => {
       if (value) {
          name.value = value.name;
-         amount.value = value.amount.toString();
+         amount.valueAsNumber = value.amount;
          unit.value = value.unit;
+      } else {
+         name.value = amount.value = unit.value = '';
       }
    })
 </script>
@@ -46,6 +49,8 @@
       onchange={onFieldChange}
       class="select join-item w-40"
       required>
+
+      <option></option>
 
       {#each units! as unit}
          <option>{unit}</option>

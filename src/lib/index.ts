@@ -14,8 +14,7 @@ export enum MetricType {
    Text = 'text',
    Note = 'note',
    SingleOption = 'option',
-   MultiOption = 'multi',
-   Quantity = 'quantity'
+   NamedQuantity = 'quantity'
 }
 
 export interface MetricOption {
@@ -29,10 +28,12 @@ export interface QuantityValue {
    unit: string;
 }
 
+export type LogValue = string|number|QuantityValue;
+
 export class LogEntry {
    metric: Metric;
    time: Date;
-   value?: string|number|QuantityValue;
+   value?: LogValue|LogValue[];
    tags: string[];
 
    constructor(metric:Metric) {
@@ -44,6 +45,16 @@ export class LogEntry {
    selectedOption() {
       const opt = this.metric.options?.find(o => o.value == this.value)
       return opt != null? opt.label : null;
+   }
+
+   values(): LogValue[] {
+      if (this.value == null) {
+         this.value = [];
+      } else if(!Array.isArray(this.value)) {
+         this.value = [this.value];
+      }
+
+      return this.value as LogValue[];
    }
 }
 
@@ -93,7 +104,7 @@ export const samples:Metric[] = [
    },
    {
       label: 'Medication',
-      metricType: MetricType.Quantity,
+      metricType: MetricType.NamedQuantity,
       units: [
          'capsule',
          'drop',

@@ -1,7 +1,7 @@
 <script lang="ts">
    import { MetricType, type LogEntry } from '$lib';
    import Tags from './Tags.svelte';
-   import Quantity from './Quantity.svelte';
+   import QuantityList from './QuantityList.svelte';
 
    let { entry = $bindable() }: {
       entry: LogEntry
@@ -27,10 +27,10 @@
          </ul>
       {:else if entry.metric.metricType == MetricType.Text}
          <input class="input w-full" type="text" bind:value={entry.value} />
-      {:else if entry.metric.metricType == MetricType.Quantity}
-         <Quantity
-            units={entry.metric.units!}
-            bind:value={entry.value as any} />
+      {:else if entry.metric.metricType == MetricType.NamedQuantity}
+         <QuantityList metric={entry.metric}
+            values={entry.values()}
+            onValuesChange={(v) => entry.value = v}/>
       {/if}
    </div>
 
