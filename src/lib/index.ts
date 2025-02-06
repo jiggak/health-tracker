@@ -65,6 +65,11 @@ export class LogEntry {
    }
 }
 
+export interface Favourite {
+   value: LogValue,
+   tags: string[]
+}
+
 export const samples:Metric[] = [
    {
       label: 'Stool',
@@ -106,7 +111,7 @@ export const samples:Metric[] = [
    {
       label: 'Food',
       metricType: MetricType.Text,
-      tags: [],
+      tags: ['brown bread', 'orange', 'peanut butter', 'granola', 'yogurt', 'oat milk', 'banana'],
       favourites: true
    },
    {
@@ -125,8 +130,7 @@ export const samples:Metric[] = [
          'tsp',
          'tbsp'
       ],
-      favourites: false,
-      recents: 5
+      favourites: true
    },
    {
       label: 'Notes',

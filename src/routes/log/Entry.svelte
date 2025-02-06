@@ -1,12 +1,18 @@
 <script lang="ts">
-   import { MetricType, type LogEntry, type LogValue } from '$lib';
+   import { MetricType, type Favourite, type LogEntry, type LogValue } from '$lib';
    import Tags from './Tags.svelte';
    import QuantityList from './QuantityList.svelte';
    import SingleOption from './SingleOption.svelte';
+   import Favourites from './Favourites.svelte';
 
    let { entry = $bindable() }: {
       entry: LogEntry
    } = $props();
+
+   let favourites:Favourite[] = $state([
+      { value: 'Toast and orange', tags: ['brown bread', 'orange', 'peanut butter']},
+      { value: 'Cereal and fruit', tags: ['granola', 'yogurt', 'oat milk', 'banana']}
+   ]);
 </script>
 
 <div class="flex flex-col gap-4 m-4">
@@ -36,5 +42,24 @@
          onTagsChanged={(tags) => entry.metric.tags = tags}
          values={entry.tags}
          onValuesChanged={(tags) => entry.tags = tags} />
+   {/if}
+
+   {#if entry.metric.favourites}
+      <div class="collapse collapse-arrow bg-base-100 border border-base-300">
+         <input type="checkbox" checked />
+         <div class="collapse-title font-semibold">Favourites</div>
+         <div class="collapse-content">
+            <Favourites
+               favourites={favourites}
+               onFavouritesChanged={(v) => favourites = v}
+               onFavouriteClick={(v) => { entry.value = v.value; entry.tags = v.tags; }}/>
+
+            <button class="btn btn-outline"
+               onclick={() => favourites.push({value: entry.value as LogValue, tags: entry.tags})}>
+
+               Add to favourites
+            </button>
+         </div>
+      </div>
    {/if}
 </div>
