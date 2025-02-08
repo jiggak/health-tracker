@@ -1,14 +1,15 @@
 <script lang="ts">
    import Entry from './Entry.svelte';
    import { goto } from '$app/navigation';
-   import { samples, LogEntry } from '$lib';
+   import type { PageProps } from './$types';
 
    function onCancel() {
       goto('/');
    }
 
-   const entries = samples.map(m => new LogEntry(m));
-   let selected = 0;
+   let { data }: PageProps = $props();
+   let entries = $state(data.entries);
+   let selected = $state(0);
 </script>
 
 <div class="navbar bg-base-100 shadow-md">
