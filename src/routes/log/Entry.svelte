@@ -1,11 +1,12 @@
 <script lang="ts">
-   import { MetricType, type Favourite, type LogEntry, type LogValue } from '$lib';
+   import { MetricType, type Favourite, type LogValue } from '$lib';
+   import { LogEntry } from './LogEntry.svelte';
    import Tags from './Tags.svelte';
    import QuantityList from './QuantityList.svelte';
    import SingleOption from './SingleOption.svelte';
    import Favourites from './Favourites.svelte';
 
-   let { entry = $bindable() }: {
+   let { entry }: {
       entry: LogEntry
    } = $props();
 

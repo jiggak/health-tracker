@@ -30,41 +30,6 @@ export interface QuantityValue {
 
 export type LogValue = string|number|QuantityValue;
 
-export class LogEntry {
-   metric: Metric;
-   time: Date;
-   value?: LogValue|LogValue[];
-   tags: string[];
-
-   constructor(metric:Metric) {
-      this.metric = metric;
-      this.time = new Date();
-      this.tags = [];
-   }
-
-   selectedOption() {
-      const opt = this.metric.options?.find(o => o.value == this.value)
-      return opt != null? opt.label : null;
-   }
-
-   values(): LogValue[] {
-      if (this.value == null) {
-         this.value = [];
-      } else if(!Array.isArray(this.value)) {
-         this.value = [this.value];
-      }
-
-      return this.value as LogValue[];
-   }
-
-   dirty() {
-      if (Array.isArray(this.value)) {
-         return (this.value as LogValue[]).length > 0;
-      }
-      return this.value;
-   }
-}
-
 export interface Favourite {
    value: LogValue,
    tags: string[]

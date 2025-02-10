@@ -9,7 +9,8 @@
 
    let { data }: PageProps = $props();
    let entries = $state(data.entries);
-   let selected = $state(0);
+   let index = $state(0);
+   let selected = $derived(entries[index]);
 </script>
 
 <div class="navbar bg-base-100 shadow-md">
@@ -22,16 +23,16 @@
    </div>
 </div>
 
-<Entry bind:entry={entries[selected]} />
+<Entry entry={selected} />
 
 <div class="dock justify-start">
    {#each entries as entry, i}
-      <div class="indicator" class:dock-active={i == selected}>
+      <div class="indicator" class:dock-active={i == index}>
          <span
             class="indicator-item indicator-center status status-info"
-            class:hidden={!entry.dirty()}></span>
+            class:hidden={!entry.dirty}></span>
 
-         <button onclick={() => selected = i}>
+         <button onclick={() => index = i}>
             <!-- <Icon name="home" /> -->
             <span class="dock-label">{entry.metric.label}</span>
          </button>

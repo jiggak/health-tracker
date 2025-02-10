@@ -1,4 +1,4 @@
-import { LogEntry } from '$lib';
+import { LogEntry } from './LogEntry.svelte';
 import { openDb } from '$lib/db';
 import type { PageLoad } from './$types';
 
