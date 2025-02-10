@@ -5,8 +5,7 @@ export interface Metric {
    metricType: MetricType;
    options?: MetricOption[];
    tags?: string[];
-   favourites: boolean;
-   recents?: number;
+   favourites?: Favourite[];
    units?: string[];
 }
 

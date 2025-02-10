@@ -1,5 +1,5 @@
 <script lang="ts">
-   import { MetricType, type Favourite, type LogValue } from '$lib';
+   import { MetricType,type LogValue } from '$lib';
    import { LogEntry } from './LogEntry.svelte';
    import Tags from './Tags.svelte';
    import QuantityList from './QuantityList.svelte';
@@ -10,10 +10,14 @@
       entry: LogEntry
    } = $props();
 
-   let favourites:Favourite[] = $state([
-      { value: 'Toast and orange', tags: ['brown bread', 'orange', 'peanut butter']},
-      { value: 'Cereal and fruit', tags: ['granola', 'yogurt', 'oat milk', 'banana']}
-   ]);
+   function addFavourite() {
+      if (entry.dirty) {
+         entry.metric.favourites!.push({
+            value: entry.value as LogValue,
+            tags: entry.tags
+         });
+      }
+   }
 </script>
 
 <div class="flex flex-col gap-4 m-4">
@@ -51,13 +55,11 @@
          <div class="collapse-title font-semibold">Favourites</div>
          <div class="collapse-content">
             <Favourites
-               favourites={favourites}
-               onFavouritesChanged={(v) => favourites = v}
+               favourites={entry.metric.favourites}
+               onFavouritesChanged={(v) => entry.metric.favourites = v}
                onFavouriteClick={(v) => { entry.value = v.value; entry.tags = v.tags; }}/>
 
-            <button class="btn btn-outline"
-               onclick={() => favourites.push({value: entry.value as LogValue, tags: entry.tags})}>
-
+            <button class="btn btn-outline" onclick={addFavourite}>
                Add to favourites
             </button>
          </div>

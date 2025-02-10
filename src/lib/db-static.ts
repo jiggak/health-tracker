@@ -5,20 +5,11 @@ class StaticDatabase implements DataStore {
    listMetrics():Promise<Metric[]> {
       return Promise.resolve(metrics);
    }
-
-   listFavourites(metric:Metric):Promise<Favourite[]> {
-      return Promise.resolve(favourites);
-   }
 }
 
 export function openDb():Promise<DataStore> {
    return Promise.resolve(new StaticDatabase());
 }
-
-const favourites:Favourite[] = [
-   { value: 'Toast and orange', tags: ['brown bread', 'orange', 'peanut butter']},
-   { value: 'Cereal and fruit', tags: ['granola', 'yogurt', 'oat milk', 'banana']}
-];
 
 const metrics:Metric[] = [
    {
@@ -33,8 +24,7 @@ const metrics:Metric[] = [
          { label: 'Mushy with ragged edges', value: 5 },
          { label: 'Liquid with no solids', value: 6 },
       ],
-      tags: ['Mucus', 'Tiny', 'Low', 'Medium', 'Large', 'Thin'],
-      favourites: false
+      tags: ['Mucus', 'Tiny', 'Low', 'Medium', 'Large', 'Thin']
    },
    {
       label: 'Sleep',
@@ -55,14 +45,16 @@ const metrics:Metric[] = [
          'difficulty falling asleep',
          'waking during sleep',
          'toss & turn'
-      ],
-      favourites: false
+      ]
    },
    {
       label: 'Food',
       metricType: MetricType.Text,
       tags: ['brown bread', 'orange', 'peanut butter', 'granola', 'yogurt', 'oat milk', 'banana'],
-      favourites: true
+      favourites: [
+         { value: 'Toast and orange', tags: ['brown bread', 'orange', 'peanut butter']},
+         { value: 'Cereal and fruit', tags: ['granola', 'yogurt', 'oat milk', 'banana']}
+      ]
    },
    {
       label: 'Medication',
@@ -80,11 +72,10 @@ const metrics:Metric[] = [
          'tsp',
          'tbsp'
       ],
-      favourites: true
+      favourites: []
    },
    {
       label: 'Notes',
-      metricType: MetricType.Note,
-      favourites: false
+      metricType: MetricType.Note
    }
 ];

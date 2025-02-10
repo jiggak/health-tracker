@@ -1,8 +1,8 @@
-import type { Favourite, Metric } from '$lib';
+import type { Metric } from '$lib';
 import type { DataStore } from './db';
 
 class WebDatabase implements DataStore {
-   constructor(private db:IDBDatabase) { }
+   constructor(private db: IDBDatabase) { }
 
    listMetrics():Promise<Metric[]> {
       return new Promise((resolve, reject) => {
@@ -14,19 +14,17 @@ class WebDatabase implements DataStore {
          request.onerror = () => reject(request.error);
       });
    }
-
-   listFavourites(metric: Metric): Promise<Favourite[]> {
-      return Promise.resolve([]);
-   }
 }
 
-export function openDb():Promise<WebDatabase> {
+function upgrade(request: IDBOpenDBRequest) {
+   request.result.createObjectStore('metrics');
+   console.log('createObjectStore');
+}
+
+export function openDb(): Promise<WebDatabase> {
    const request = indexedDB.open('health-tracker', 1);
 
-   request.onupgradeneeded = () => {
-      request.result.createObjectStore("metrics");
-      console.log('createObjectStore');
-   }
+   request.onupgradeneeded = () => upgrade(request);
 
    return new Promise((resolve, reject) => {
       request.onsuccess = () => resolve(new WebDatabase(request.result));

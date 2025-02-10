@@ -1,7 +1,7 @@
 import type { LogValue, Metric } from '$lib';
 
 export class LogEntry {
-   metric: Metric;
+   metric: Metric = $state()!;
    time: Date = $state(new Date());
    value?: LogValue|LogValue[] = $state();
    tags: string[] = $state([]);
