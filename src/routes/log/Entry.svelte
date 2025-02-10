@@ -1,22 +1,37 @@
 <script lang="ts">
-   import { MetricType,type LogValue } from '$lib';
+   import { MetricType,type Favourite,type LogValue } from '$lib';
    import { LogEntry } from './LogEntry.svelte';
    import Tags from './Tags.svelte';
    import QuantityList from './QuantityList.svelte';
    import SingleOption from './SingleOption.svelte';
    import Favourites from './Favourites.svelte';
+   import { openDb } from '$lib/db';
 
    let { entry }: {
       entry: LogEntry
    } = $props();
 
-   function addFavourite() {
+   async function addFavourite() {
       if (entry.dirty) {
-         entry.metric.favourites!.push({
-            value: entry.value as LogValue,
-            tags: entry.tags
-         });
+         entry.metric.favourites!.push(entry.favourite());
       }
+
+      await updateMetric();
+   }
+
+   async function updateFavourites(favourites: Favourite[]) {
+      entry.metric.favourites = favourites;
+      await updateMetric();
+   }
+
+   async function updateTages(tags: string[]) {
+      entry.metric.tags = tags;
+      await updateMetric();
+   }
+
+   async function updateMetric() {
+      const db = await openDb();
+      await db.putMetric($state.snapshot(entry.metric));
    }
 </script>
 
@@ -44,7 +59,7 @@
    {#if entry.metric.tags}
       <Tags
          tags={entry.metric.tags}
-         onTagsChanged={(tags) => entry.metric.tags = tags}
+         onTagsChanged={async (tags) => await updateTages(tags)}
          values={entry.tags}
          onValuesChanged={(tags) => entry.tags = tags} />
    {/if}
@@ -56,7 +71,7 @@
          <div class="collapse-content">
             <Favourites
                favourites={entry.metric.favourites}
-               onFavouritesChanged={(v) => entry.metric.favourites = v}
+               onFavouritesChanged={async (v) => await updateFavourites(v)}
                onFavouriteClick={(v) => { entry.value = v.value; entry.tags = v.tags; }}/>
 
             <button class="btn btn-outline" onclick={addFavourite}>

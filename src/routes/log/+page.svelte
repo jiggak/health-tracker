@@ -23,7 +23,9 @@
    </div>
 </div>
 
-<Entry entry={selected} />
+{#if selected}
+   <Entry entry={selected} />
+{/if}
 
 <div class="dock justify-start">
    {#each entries as entry, i}

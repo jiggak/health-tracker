@@ -1,6 +1,7 @@
 // place files you want to import through the `$lib` alias in this folder.
 
 export interface Metric {
+   key: string;
    label: string;
    metricType: MetricType;
    options?: MetricOption[];

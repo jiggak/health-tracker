@@ -1,4 +1,4 @@
-import type { LogValue, Metric } from '$lib';
+import type { Favourite, LogValue, Metric } from '$lib';
 
 export class LogEntry {
    metric: Metric = $state()!;
@@ -24,5 +24,12 @@ export class LogEntry {
       }
 
       return this.value as LogValue[];
+   }
+
+   favourite(): Favourite {
+      return {
+         value: this.value as LogValue,
+         tags: this.tags
+      };
    }
 }

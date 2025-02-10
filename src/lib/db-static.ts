@@ -5,14 +5,19 @@ class StaticDatabase implements DataStore {
    listMetrics():Promise<Metric[]> {
       return Promise.resolve(metrics);
    }
+
+   putMetric(metric: Metric) {
+      return Promise.resolve();
+   }
 }
 
 export function openDb():Promise<DataStore> {
    return Promise.resolve(new StaticDatabase());
 }
 
-const metrics:Metric[] = [
+export const metrics:Metric[] = [
    {
+      key: 'stool',
       label: 'Stool',
       metricType: MetricType.SingleOption,
       options: [
@@ -27,6 +32,7 @@ const metrics:Metric[] = [
       tags: ['Mucus', 'Tiny', 'Low', 'Medium', 'Large', 'Thin']
    },
    {
+      key: 'sleep',
       label: 'Sleep',
       metricType: MetricType.SingleOption,
       options: [
@@ -48,6 +54,7 @@ const metrics:Metric[] = [
       ]
    },
    {
+      key: 'food',
       label: 'Food',
       metricType: MetricType.Text,
       tags: ['brown bread', 'orange', 'peanut butter', 'granola', 'yogurt', 'oat milk', 'banana'],
@@ -57,6 +64,7 @@ const metrics:Metric[] = [
       ]
    },
    {
+      key: 'medication',
       label: 'Medication',
       metricType: MetricType.NamedQuantity,
       units: [
@@ -75,6 +83,7 @@ const metrics:Metric[] = [
       favourites: []
    },
    {
+      key: 'notes',
       label: 'Notes',
       metricType: MetricType.Note
    }
