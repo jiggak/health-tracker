@@ -8,7 +8,11 @@
    }
 
    let { data }: PageProps = $props();
-   let entries = $state(data.entries);
+
+   const ordered = data.entries
+      .toSorted((a, b) => a.metric.order - b.metric.order);
+
+   let entries = $state(ordered);
    let index = $state(0);
    let selected = $derived(entries[index]);
 </script>

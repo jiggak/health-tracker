@@ -19,6 +19,7 @@ export const metrics:Metric[] = [
    {
       key: 'stool',
       label: 'Stool',
+      order: 3,
       metricType: MetricType.SingleOption,
       options: [
          { label: 'None', value: 0, },
@@ -34,6 +35,7 @@ export const metrics:Metric[] = [
    {
       key: 'sleep',
       label: 'Sleep',
+      order: 2,
       metricType: MetricType.SingleOption,
       options: [
          { label: 'Hour or less', value: 1 },
@@ -56,6 +58,7 @@ export const metrics:Metric[] = [
    {
       key: 'food',
       label: 'Food',
+      order: 1,
       metricType: MetricType.Text,
       tags: ['brown bread', 'orange', 'peanut butter', 'granola', 'yogurt', 'oat milk', 'banana'],
       favourites: [
@@ -66,6 +69,7 @@ export const metrics:Metric[] = [
    {
       key: 'medication',
       label: 'Medication',
+      order: 4,
       metricType: MetricType.NamedQuantity,
       units: [
          'capsule',
@@ -85,6 +89,7 @@ export const metrics:Metric[] = [
    {
       key: 'notes',
       label: 'Notes',
+      order: 5,
       metricType: MetricType.Note
    }
 ];

@@ -3,6 +3,7 @@
 export interface Metric {
    key: string;
    label: string;
+   order: number;
    metricType: MetricType;
    options?: MetricOption[];
    tags?: string[];
