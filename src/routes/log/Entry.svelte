@@ -42,8 +42,7 @@
       {#if entry.metric.metricType == MetricType.SingleOption}
          <SingleOption
             options={entry.metric.options!}
-            value={entry.value as LogValue}
-            onValueChanged={(v) => entry.value = v} />
+            bind:value={entry.value as LogValue|undefined} />
       {:else if entry.metric.metricType == MetricType.Text}
          <input class="input w-full" type="text" bind:value={entry.value} />
       {:else if entry.metric.metricType == MetricType.NamedQuantity}

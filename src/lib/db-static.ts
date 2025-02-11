@@ -22,6 +22,7 @@ export const metrics:Metric[] = [
       order: 3,
       metricType: MetricType.SingleOption,
       options: [
+         { label: 'Select stool type', value: undefined },
          { label: 'None', value: 0, },
          { label: 'Separate hard lumps', value: 1 },
          { label: 'Sausage shaped with cracks', value: 2 },
@@ -38,6 +39,7 @@ export const metrics:Metric[] = [
       order: 2,
       metricType: MetricType.SingleOption,
       options: [
+         { label: 'Select hours slept', value: undefined },
          { label: 'Hour or less', value: 1 },
          { label: '2 hours', value: 2 },
          { label: '3 hours', value: 3 },

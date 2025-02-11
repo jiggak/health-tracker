@@ -9,7 +9,7 @@ export class LogEntry {
       if (Array.isArray(this.value)) {
          return (this.value as LogValue[]).length > 0;
       }
-      return !!this.value;
+      return this.value !== null && this.value !== undefined && this.value !== '';
    });
 
    constructor(metric:Metric) {

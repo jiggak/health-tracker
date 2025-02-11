@@ -20,7 +20,7 @@ export enum MetricType {
 
 export interface MetricOption {
    label: string;
-   value: number|string;
+   value: number|string|undefined;
 }
 
 export interface QuantityValue {

@@ -1,27 +1,26 @@
 <script lang="ts">
    import type { LogValue, MetricOption } from '$lib';
 
-   let { options, value, onValueChanged  }: {
+   let { options, value = $bindable() }: {
       options: MetricOption[],
-      value?: LogValue,
-      onValueChanged(v:LogValue): void
+      value?: LogValue
    } = $props();
 
-   function selectedOption() {
+   let selectedOption = $derived.by(() => {
       const opt = options?.find(o => o.value == value)
       return opt != null? opt.label : null;
-   }
+   });
 </script>
 
-<p class="h-8 text-center">
-   {selectedOption()}
+<p class="h-10 text-center">
+   {selectedOption}
 </p>
-<ul class="steps">
+
+<div class="flex justify-evenly">
    {#each options as option}
-      <li data-content="●"
-         class="step"
-         class:step-primary={value == option.value}
-         onclick={() => onValueChanged(option.value)}>
-      </li>
+      <input type="radio"
+         class="radio"
+         value={option.value}
+         bind:group={value}  />
    {/each}
-</ul>
+</div>
