@@ -25,7 +25,7 @@
             class="btn btn-square btn-neutral btn-xs"
             onclick={() => removeFavourite(fav)}>
 
-            <Icon name="trash" svgClass="size-4" />
+            <Icon name="trash" svgClass="size-5" />
          </button>
       </li>
    {/each}
