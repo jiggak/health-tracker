@@ -2,10 +2,7 @@
    import Entry from './Entry.svelte';
    import { goto } from '$app/navigation';
    import type { PageProps } from './$types';
-
-   function onCancel() {
-      goto('/');
-   }
+   import { dateToString, stringToDate } from '$lib';
 
    let { data }: PageProps = $props();
 
@@ -15,6 +12,15 @@
    let entries = $state(ordered);
    let index = $state(0);
    let selected = $derived(entries[index]);
+   let dateTime = $state(new Date());
+
+   function onCancel() {
+      goto('/');
+   }
+
+   function onSave() {
+
+   }
 </script>
 
 <div class="navbar bg-base-100 shadow-md">
@@ -22,8 +28,15 @@
       <button class="btn" onclick={onCancel}>Cancel</button>
    </div>
 
+   <div class="navbar-center">
+      <input type="datetime-local"
+         class="input input-ghost"
+         value={dateToString(dateTime)}
+         onchange={({currentTarget}) => dateTime = stringToDate(currentTarget.value)} />
+   </div>
+
    <div class="navbar-end">
-      <button class="btn btn-primary">Save All</button>
+      <button class="btn btn-primary" onclick={onSave}>Save All</button>
    </div>
 </div>
 
@@ -35,7 +48,7 @@
    {#each entries as entry, i}
       <div class="indicator" class:dock-active={i == index}>
          <span
-            class="indicator-item indicator-center status status-info"
+            class="indicator-item indicator-center status status-secondary"
             class:hidden={!entry.dirty}></span>
 
          <button onclick={() => index = i}>

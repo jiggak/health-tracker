@@ -35,3 +35,21 @@ export interface Favourite {
    value: LogValue,
    tags: string[]
 }
+
+export function dateToString(d: Date): string {
+   function pad(i: number): string {
+      return i < 10? '0' + i : i.toString();
+   }
+
+   const year = d.getFullYear();
+   const month = pad(d.getMonth()+1);
+   const day = pad(d.getDate());
+   const hour = pad(d.getHours());
+   const minute = pad(d.getMinutes());
+
+   return `${year}-${month}-${day}T${hour}:${minute}`;
+}
+
+export function stringToDate(s:string): Date {
+   return new Date(Date.parse(s));
+}
