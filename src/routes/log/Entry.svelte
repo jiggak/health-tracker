@@ -19,12 +19,12 @@
       await updateMetric();
    }
 
-   async function updateFavourites(favourites: Favourite[]) {
+   async function setFavourites(favourites: Favourite[]) {
       entry.metric.favourites = favourites;
       await updateMetric();
    }
 
-   async function updateTages(tags: string[]) {
+   async function setTags(tags: string[]) {
       entry.metric.tags = tags;
       await updateMetric();
    }
@@ -58,7 +58,7 @@
    {#if entry.metric.tags}
       <Tags
          tags={entry.metric.tags}
-         onTagsChanged={async (tags) => await updateTages(tags)}
+         onTagsChanged={async (tags) => await setTags(tags)}
          values={entry.tags}
          onValuesChanged={(tags) => entry.tags = tags} />
    {/if}
@@ -70,7 +70,7 @@
          <div class="collapse-content">
             <Favourites
                favourites={entry.metric.favourites}
-               onFavouritesChanged={async (v) => await updateFavourites(v)}
+               onFavouritesChanged={async (v) => await setFavourites(v)}
                onFavouriteClick={(v) => { entry.value = v.value; entry.tags = v.tags; }}/>
 
             <button class="btn btn-outline" onclick={addFavourite}>
