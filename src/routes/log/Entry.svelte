@@ -47,7 +47,7 @@
          <input class="input w-full" type="text" bind:value={entry.value} />
       {:else if entry.metric.metricType == MetricType.NamedQuantity}
          <QuantityList
-            metric={entry.metric}
+            units={entry.metric.units!}
             values={entry.values()}
             onValuesChanged={(v) => entry.value = v} />
       {:else if entry.metric.metricType == MetricType.Note}

@@ -1,12 +1,12 @@
 <script lang="ts">
-   import type { LogValue, Metric, QuantityValue } from '$lib';
+   import type { LogValue, QuantityValue } from '$lib';
    import Icon from '$lib/Icon.svelte';
    import Quantity from './Quantity.svelte';
 
-   let { metric, values, onValuesChanged }: {
-      metric: Metric,
+   let { units, values, onValuesChanged }: {
+      units: string[],
       values: LogValue[],
-      onValuesChanged(values:LogValue[]): void
+      onValuesChanged(values: LogValue[]): void
    } = $props();
 
    let newValue:LogValue | undefined = $state();
@@ -18,12 +18,12 @@
       }
    }
 
-   function removeValue(val:LogValue) {
+   function removeValue(val: LogValue) {
       onValuesChanged(values.filter((v) => v !== val));
    }
 
-   function value(v:QuantityValue) {
-      return `${v.name} ${v.amount} ${v.unit}`
+   function value(v: QuantityValue) {
+      return `${v.name} ${v.amount} ${v.unit}`;
    }
 </script>
 
@@ -50,7 +50,7 @@
 
 <div class="flex mt-4">
    <Quantity
-      units={metric.units!}
+      units={units}
       value={newValue as QuantityValue}
       onValueChange={(v) => newValue = v}
    />
