@@ -20,18 +20,36 @@ export const metrics:Metric[] = [
       key: 'stool',
       label: 'Stool',
       order: 3,
-      metricType: MetricType.SingleOption,
-      options: [
-         { label: 'Select stool type', value: undefined },
-         { label: 'None', value: 0, },
-         { label: 'Separate hard lumps', value: 1 },
-         { label: 'Sausage shaped with cracks', value: 2 },
-         { label: 'Smooth sausage shaped', value: 3 },
-         { label: 'Soft blobs clear cut edges', value: 4 },
-         { label: 'Mushy with ragged edges', value: 5 },
-         { label: 'Liquid with no solids', value: 6 },
-      ],
-      tags: ['Mucus', 'Tiny', 'Low', 'Medium', 'Large', 'Thin']
+      metricType: MetricType.Grouped,
+      metrics: {
+         type: {
+            metricType: MetricType.SingleOption,
+            options: [
+               { label: 'Select stool type', value: undefined },
+               { label: 'None', value: 0, },
+               { label: 'Separate hard lumps', value: 1 },
+               { label: 'Sausage shaped with cracks', value: 2 },
+               { label: 'Smooth sausage shaped', value: 3 },
+               { label: 'Soft blobs clear cut edges', value: 4 },
+               { label: 'Mushy with ragged edges', value: 5 },
+               { label: 'Liquid with no solids', value: 6 },
+            ]
+         },
+         volume: {
+            metricType: MetricType.SingleOption,
+            options: [
+               { label: 'Select volume', value: undefined },
+               { label: 'Tiny', value: 0.1 },
+               { label: 'Tiny Low', value: 0.5 },
+               { label: 'Low', value: 1.0 },
+               { label: 'Low Medium', value: 1.5 },
+               { label: 'Medium', value: 2.0 },
+               { label: 'Medium High', value: 2.5 },
+               { label: 'High', value: 3.0 },
+            ]
+         }
+      },
+      tags: ['Mucus', 'Thin']
    },
    {
       key: 'sleep',

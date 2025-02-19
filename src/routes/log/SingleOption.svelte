@@ -1,9 +1,10 @@
 <script lang="ts">
    import type { LogValue, MetricOption } from '$lib';
 
-   let { options, value = $bindable() }: {
+   let { options, value, onValueChanged }: {
       options: MetricOption[],
-      value?: LogValue
+      value?: LogValue,
+      onValueChanged(val?: LogValue): void
    } = $props();
 
    let selectedOption = $derived.by(() => {
@@ -20,7 +21,8 @@
    {#each options as option}
       <input type="radio"
          class="radio"
+         onchange={(_) => onValueChanged(option.value)}
          value={option.value}
-         bind:group={value}  />
+         bind:group={value} />
    {/each}
 </div>

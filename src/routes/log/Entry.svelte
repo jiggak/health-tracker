@@ -41,17 +41,27 @@
    <div>
       {#if entry.metric.metricType == MetricType.SingleOption}
          <SingleOption
-            options={entry.metric.options!}
-            bind:value={entry.value as LogValue|undefined} />
+            options={entry.metric.options}
+            value={entry.value as LogValue|undefined}
+            onValueChanged={(val) => entry.value = val} />
       {:else if entry.metric.metricType == MetricType.Text}
          <input class="input w-full" type="text" bind:value={entry.value} />
       {:else if entry.metric.metricType == MetricType.NamedQuantity}
          <QuantityList
-            units={entry.metric.units!}
+            units={entry.metric.units}
             values={entry.values()}
             onValuesChanged={(v) => entry.value = v} />
       {:else if entry.metric.metricType == MetricType.Note}
          <textarea class="textarea w-full" bind:value={entry.value}></textarea>
+      {:else if entry.metric.metricType == MetricType.Grouped}
+         {#each Object.entries(entry.metric.metrics) as [key, metric]}
+            {#if metric.metricType == MetricType.SingleOption}
+               <SingleOption
+                  options={metric.options}
+                  value={entry.getKeyValue(key)}
+                  onValueChanged={(val) => entry.setKeyValue(key, val!)} />
+            {/if}
+         {/each}
       {/if}
    </div>
 

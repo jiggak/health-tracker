@@ -1,22 +1,54 @@
 // place files you want to import through the `$lib` alias in this folder.
 
-export interface Metric {
+interface MetricCommon {
    key: string;
    label: string;
    order: number;
    metricType: MetricType;
-   options?: MetricOption[];
    tags?: string[];
    favourites?: Favourite[];
-   units?: string[];
 }
 
 export enum MetricType {
    Text = 'text',
    Note = 'note',
    SingleOption = 'option',
-   NamedQuantity = 'quantity'
+   NamedQuantity = 'quantity',
+   Grouped = 'grouped'
 }
+
+interface TextMetric {
+   metricType: MetricType.Text
+}
+
+interface NoteMetric {
+   metricType: MetricType.Note
+}
+
+interface SingleOptionMetric {
+   metricType: MetricType.SingleOption;
+   options: MetricOption[];
+}
+
+interface NamedQuantityMetric {
+   metricType: MetricType.NamedQuantity;
+   units: string[];
+}
+
+interface GroupedMetric {
+   metricType: MetricType.Grouped;
+   metrics: {
+      [key: string]: SingleOptionMetric
+   }
+}
+
+export type Metric = MetricCommon & (
+   | TextMetric
+   | NoteMetric
+   | SingleOptionMetric
+   | NamedQuantityMetric
+   | GroupedMetric
+)
 
 export interface MetricOption {
    label: string;
@@ -29,7 +61,11 @@ export interface QuantityValue {
    unit: string;
 }
 
-export type LogValue = string|number|QuantityValue;
+export interface KeyedValue {
+   [key: string]: LogValue
+}
+
+export type LogValue = string | number | QuantityValue;
 
 export interface Favourite {
    value: LogValue,
