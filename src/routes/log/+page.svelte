@@ -3,6 +3,7 @@
    import { goto } from '$app/navigation';
    import type { PageProps } from './$types';
    import { dateToString, stringToDate } from '$lib';
+   import { openDb } from '$lib/db';
 
    let { data }: PageProps = $props();
 
@@ -18,8 +19,21 @@
       goto('/');
    }
 
-   function onSave() {
+   async function onSave() {
+      const db = await openDb();
 
+      const entriesToAdd = entries.filter((e) => e.dirty);
+
+      for (const entry of entriesToAdd) {
+         await db.addLogEntry({
+            metricKey: entry.metric.key,
+            time: $state.snapshot(dateTime),
+            tags: $state.snapshot(entry.tags),
+            value: $state.snapshot(entry.value!)
+         });
+      }
+
+      goto('/');
    }
 </script>
 

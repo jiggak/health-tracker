@@ -68,8 +68,16 @@ export interface KeyedValue {
 export type LogValue = string | number | QuantityValue;
 
 export interface Favourite {
-   value: LogValue,
-   tags: string[]
+   value: LogValue;
+   tags: string[];
+}
+
+export interface LogEntry {
+   id?: number,
+   metricKey: string;
+   time: Date;
+   value: LogValue | LogValue[] | KeyedValue;
+   tags: string[];
 }
 
 export function dateToString(d: Date): string {

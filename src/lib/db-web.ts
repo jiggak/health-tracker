@@ -1,11 +1,11 @@
-import type { Metric } from '$lib';
+import type { LogEntry, Metric } from '$lib';
 import type { DataStore } from './db';
 import { metrics } from './db-static'
 
 class WebDatabase implements DataStore {
    constructor(private db: IDBDatabase) { }
 
-   listMetrics():Promise<Metric[]> {
+   listMetrics(): Promise<Metric[]> {
       return new Promise((resolve, reject) => {
          const request = this.db.transaction('metrics')
             .objectStore('metrics')
@@ -20,9 +20,31 @@ class WebDatabase implements DataStore {
       return new Promise((resolve, reject) => {
          const request = this.db.transaction('metrics', 'readwrite')
                .objectStore('metrics')
-               .put(metric, metric.key);
+               .put(metric);
 
          request.onsuccess = () => resolve();
+         request.onerror = () => reject(request.error);
+      });
+   }
+
+   addLogEntry(entry: LogEntry): Promise<void> {
+      return new Promise((resolve, reject) => {
+         const request = this.db.transaction('logEntries', 'readwrite')
+               .objectStore('logEntries')
+               .add(entry);
+
+         request.onsuccess = () => resolve();
+         request.onerror = () => reject(request.error);
+      });
+   }
+
+   listLogEntries(): Promise<LogEntry[]> {
+      return new Promise((resolve, reject) => {
+         const request = this.db.transaction('logEntries')
+            .objectStore('logEntries')
+            .getAll();
+
+         request.onsuccess = () => resolve(request.result);
          request.onerror = () => reject(request.error);
       });
    }
@@ -30,8 +52,18 @@ class WebDatabase implements DataStore {
 
 function upgrade(request: IDBOpenDBRequest) {
    console.log('onUpgrade');
-   const metricsStore = request.result.createObjectStore('metrics');
-   metricsStore.createIndex('key', 'key', { unique: true });
+
+   const db = request.result;
+
+   db.createObjectStore('metrics', {
+      keyPath: 'key'
+   });
+   // metricsStore.createIndex('key', 'key', { unique: true });
+
+   db.createObjectStore('logEntries', {
+      keyPath: 'id',
+      autoIncrement: true
+   });
 }
 
 async function init(db: WebDatabase) {

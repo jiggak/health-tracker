@@ -2,7 +2,6 @@ import type { Favourite, KeyedValue, LogValue, Metric } from '$lib';
 
 export class LogEntry {
    metric: Metric = $state()!;
-   time: Date = $state(new Date());
    value?: LogValue | LogValue[] | KeyedValue = $state();
    tags: string[] = $state([]);
    dirty: boolean = $derived.by(() => {

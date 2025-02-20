@@ -1,13 +1,22 @@
-import { MetricType, type Favourite, type Metric } from '$lib';
+import { MetricType, type LogEntry, type Metric } from '$lib';
 import type { DataStore } from './db';
 
 class StaticDatabase implements DataStore {
-   listMetrics():Promise<Metric[]> {
+   listMetrics() {
       return Promise.resolve(metrics);
    }
 
    putMetric(metric: Metric) {
       return Promise.resolve();
+   }
+
+   addLogEntry(entry: LogEntry) {
+      logEntries.push(entry);
+      return Promise.resolve();
+   }
+
+   listLogEntries() {
+      return Promise.resolve(logEntries);
    }
 }
 
@@ -15,7 +24,9 @@ export function openDb():Promise<DataStore> {
    return Promise.resolve(new StaticDatabase());
 }
 
-export const metrics:Metric[] = [
+const logEntries: LogEntry[] = [];
+
+export const metrics: Metric[] = [
    {
       key: 'stool',
       label: 'Stool',
