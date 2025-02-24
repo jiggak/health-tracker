@@ -75,7 +75,7 @@ export interface Favourite {
 export interface LogEntry {
    id?: number,
    metricKey: string;
-   time: Date;
+   timestamp: number;
    value: LogValue | LogValue[] | KeyedValue;
    tags: string[];
 }

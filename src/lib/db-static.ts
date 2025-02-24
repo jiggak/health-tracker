@@ -7,6 +7,14 @@ class StaticDatabase implements DataStore {
    }
 
    putMetric(metric: Metric) {
+      const i = metrics.findIndex((m) => m.key == metric.key);
+
+      if (i >= 0) {
+         metrics[i] = metric;
+      } else {
+         metrics.push(metric);
+      }
+
       return Promise.resolve();
    }
 
@@ -15,8 +23,10 @@ class StaticDatabase implements DataStore {
       return Promise.resolve();
    }
 
-   listLogEntries() {
-      return Promise.resolve(logEntries);
+   listLogEntries(startTs: number, endTs: number) {
+      const results = logEntries
+         .filter((x) => x.timestamp >= startTs && x.timestamp <= endTs);
+      return Promise.resolve(results);
    }
 }
 

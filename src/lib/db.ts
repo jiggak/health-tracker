@@ -8,5 +8,5 @@ export interface DataStore {
 
    addLogEntry(entry: LogEntry): Promise<void>;
 
-   listLogEntries(): Promise<LogEntry[]>;
+   listLogEntries(startTs: number, endTs: number): Promise<LogEntry[]>;
 }

@@ -38,13 +38,27 @@ class WebDatabase implements DataStore {
       });
    }
 
-   listLogEntries(): Promise<LogEntry[]> {
+   listLogEntries(startTs: number, endTs: number): Promise<LogEntry[]> {
       return new Promise((resolve, reject) => {
-         const request = this.db.transaction('logEntries')
-            .objectStore('logEntries')
-            .getAll();
+         const range = IDBKeyRange.bound(startTs, endTs);
 
-         request.onsuccess = () => resolve(request.result);
+         const store = this.db.transaction('logEntries')
+            .objectStore('logEntries');
+
+         const index = store.index('timestamp');
+         const request = index.openCursor(range);
+
+         const result: LogEntry[] = [];
+
+         request.onsuccess = (e) => {
+            const cursor = request.result;
+            if (cursor) {
+               result.push(cursor.value);
+               cursor.continue();
+            } else {
+               resolve(result);
+            }
+         };
          request.onerror = () => reject(request.error);
       });
    }
@@ -58,12 +72,13 @@ function upgrade(request: IDBOpenDBRequest) {
    db.createObjectStore('metrics', {
       keyPath: 'key'
    });
-   // metricsStore.createIndex('key', 'key', { unique: true });
 
-   db.createObjectStore('logEntries', {
+   const store = db.createObjectStore('logEntries', {
       keyPath: 'id',
       autoIncrement: true
    });
+
+   store.createIndex('timestamp', 'timestamp');
 }
 
 async function init(db: WebDatabase) {

@@ -4,6 +4,7 @@
    import type { PageProps } from './$types';
    import { dateToString, stringToDate } from '$lib';
    import { openDb } from '$lib/db';
+   import dayjs from 'dayjs';
 
    let { data }: PageProps = $props();
 
@@ -27,7 +28,7 @@
       for (const entry of entriesToAdd) {
          await db.addLogEntry({
             metricKey: entry.metric.key,
-            time: $state.snapshot(dateTime),
+            timestamp: dayjs(dateTime).unix(),
             tags: $state.snapshot(entry.tags),
             value: $state.snapshot(entry.value!)
          });
