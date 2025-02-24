@@ -2,7 +2,6 @@
    import Entry from './Entry.svelte';
    import { goto } from '$app/navigation';
    import type { PageProps } from './$types';
-   import { dateToString, stringToDate } from '$lib';
    import { openDb } from '$lib/db';
    import dayjs from 'dayjs';
 
@@ -35,6 +34,14 @@
       }
 
       goto('/');
+   }
+
+   function dateToString(d: Date): string {
+      return dayjs(d).format('YYYY-MM-DD[T]HH:mm');
+   }
+
+   function stringToDate(s: string): Date {
+      return dayjs(s, 'YYYY-MM-DD[T]HH:mm').toDate();
    }
 </script>
 
