@@ -72,10 +72,12 @@ export interface Favourite {
    tags: string[];
 }
 
+export type LogEntryValue = LogValue | LogValue[] | KeyedValue;
+
 export interface LogEntry {
-   id?: number,
+   id?: number;
    metricKey: string;
    timestamp: number;
-   value: LogValue | LogValue[] | KeyedValue;
+   value: LogEntryValue;
    tags: string[];
 }

@@ -20,7 +20,7 @@
       <span class="dock-label">Add</span>
    </a>
 
-   <a href="/history" class:dock-active={page.url.pathname == '/history'}>
+   <a href="/history" class:dock-active={page.url.pathname.startsWith('/history')}>
       <Icon name="calendar" />
       <span class="dock-label">History</span>
    </a>

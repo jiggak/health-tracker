@@ -1,8 +1,8 @@
-import type { Favourite, KeyedValue, LogValue, Metric } from '$lib';
+import type { Favourite, KeyedValue, LogEntryValue, LogValue, Metric } from '$lib';
 
 export class LogEntry {
    metric: Metric = $state()!;
-   value?: LogValue | LogValue[] | KeyedValue = $state();
+   value?: LogEntryValue = $state();
    tags: string[] = $state([]);
    dirty: boolean = $derived.by(() => {
       if (Array.isArray(this.value)) {
@@ -13,7 +13,7 @@ export class LogEntry {
          && this.value !== '';
    });
 
-   constructor(metric:Metric) {
+   constructor(metric: Metric) {
       this.metric = metric;
    }
 
