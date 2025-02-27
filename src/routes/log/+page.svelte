@@ -45,7 +45,7 @@
    }
 </script>
 
-<div class="navbar bg-base-100 shadow-md">
+<div class="navbar shadow-md">
    <div class="navbar-start">
       <button class="btn" onclick={onCancel}>Cancel</button>
    </div>

@@ -43,7 +43,7 @@
 </script>
 
 <Modal bind:this={modal}>
-   <div class="navbar bg-base-100 shadow-md">
+   <div class="navbar shadow-md">
       <div class="navbar-start">
          <button class="btn" onclick={() => modal.close()}>Cancel</button>
       </div>
@@ -68,7 +68,7 @@
          </button>
       </div>
 
-      <ul class="list bg-base-100 rounded-box shadow-md">
+      <ul class="list rounded-box shadow-md">
          {#each tags as tag}
             <li class="list-row">
                <div class="list-col-grow flex flex-col justify-center">

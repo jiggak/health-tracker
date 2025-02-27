@@ -27,7 +27,7 @@
    }
 </script>
 
-<ul class="list bg-base-100 rounded-box shadow-md">
+<ul class="list rounded-box shadow-md">
    {#each values as val}
       <li class="list-row">
          <div class="list-col-grow flex flex-col justify-center">

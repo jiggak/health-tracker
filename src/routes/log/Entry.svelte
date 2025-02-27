@@ -74,7 +74,7 @@
    {/if}
 
    {#if entry.metric.favourites}
-      <div class="collapse collapse-arrow bg-base-100 border border-base-300">
+      <div class="collapse collapse-arrow border border-base-300">
          <input type="checkbox" checked />
          <div class="collapse-title font-semibold">Favourites</div>
          <div class="collapse-content">

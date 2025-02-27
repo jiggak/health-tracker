@@ -13,7 +13,7 @@
    }
 </script>
 
-<ul class="list bg-base-100 rounded-box shadow-md my-4">
+<ul class="list rounded-box shadow-md my-4">
    {#each favourites as fav}
       <li class="list-row">
          <div role="button" tabindex="0"
