@@ -1,9 +1,9 @@
 <script lang="ts">
-   import LogForm from '../LogForm.svelte';
    import { goto } from '$app/navigation';
-   import type { PageProps } from './$types';
    import { openDb } from '$lib/db';
-   import dayjs from 'dayjs';
+   import DateTime from '../DateTime.svelte';
+   import LogForm from '../LogForm.svelte';
+   import type { PageProps } from './$types';
 
    const { data }: PageProps = $props();
    const { model } = data;
@@ -21,14 +21,6 @@
 
       goto('/');
    }
-
-   function timestampToString(ts: number): string {
-      return dayjs.unix(ts).format('YYYY-MM-DD[T]HH:mm');
-   }
-
-   function stringToTimestamp(s: string): number {
-      return dayjs(s, 'YYYY-MM-DD[T]HH:mm').unix();
-   }
 </script>
 
 <div class="navbar shadow-md">
@@ -37,10 +29,7 @@
    </div>
 
    <div class="navbar-center">
-      <input type="datetime-local"
-         class="input input-ghost"
-         value={timestampToString(model.timestamp)}
-         onchange={({currentTarget}) => model.timestamp = stringToTimestamp(currentTarget.value)} />
+      <DateTime bind:timestamp={model.timestamp} />
    </div>
 
    <div class="navbar-end">

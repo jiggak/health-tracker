@@ -1,6 +1,7 @@
 <script lang="ts">
-   import type { PageProps } from './$types';
+   import DateTime from '../DateTime.svelte';
    import LogForm from '../LogForm.svelte';
+   import type { PageProps } from './$types';
 
    const { data }: PageProps = $props();
    const { log } = data;
@@ -12,8 +13,7 @@
    </div>
 
    <div class="navbar-center">
-      <input type="datetime-local"
-         class="input input-ghost" />
+      <DateTime bind:timestamp={log.timestamp} />
    </div>
 
    <div class="navbar-end">
