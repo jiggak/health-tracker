@@ -18,6 +18,10 @@
    function onSetDate(date: string) {
       goto(date);
    }
+
+   function onEdit(id: number) {
+      goto(`/log/${id}`);
+   }
 </script>
 
 <div class="join">
@@ -53,6 +57,9 @@
                {/each}
             </div>
          </div>
+         <button class="btn btn-square btn-ghost" onclick={() => onEdit(log.id)}>
+            <Icon name="pencil" />
+         </button>
       </li>
    {/each}
 </ul>
