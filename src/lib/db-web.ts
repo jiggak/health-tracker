@@ -19,19 +19,41 @@ class WebDatabase implements DataStore {
    putMetric(metric: Metric): Promise<void> {
       return new Promise((resolve, reject) => {
          const request = this.db.transaction('metrics', 'readwrite')
-               .objectStore('metrics')
-               .put(metric);
+            .objectStore('metrics')
+            .put(metric);
 
          request.onsuccess = () => resolve();
          request.onerror = () => reject(request.error);
       });
    }
 
-   addLog(entry: LogRecord): Promise<void> {
+   addLog(log: LogRecord): Promise<void> {
       return new Promise((resolve, reject) => {
          const request = this.db.transaction('logEntries', 'readwrite')
-               .objectStore('logEntries')
-               .add(entry);
+            .objectStore('logEntries')
+            .add(log);
+
+         request.onsuccess = () => resolve();
+         request.onerror = () => reject(request.error);
+      });
+   }
+
+   updateLog(log: LogRecord): Promise<void> {
+      return new Promise((resolve, reject) => {
+         const request = this.db.transaction('logEntries', 'readwrite')
+            .objectStore('logEntries')
+            .put(log);
+
+         request.onsuccess = () => resolve();
+         request.onerror = () => reject(request.error);
+      });
+   }
+
+   deleteLog(id: number): Promise<void> {
+      return new Promise((resolve, reject) => {
+         const request = this.db.transaction('logEntries', 'readwrite')
+            .objectStore('logEntries')
+            .delete(id);
 
          request.onsuccess = () => resolve();
          request.onerror = () => reject(request.error);

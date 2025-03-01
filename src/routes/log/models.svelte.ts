@@ -74,7 +74,7 @@ export class NewLogs {
          .toSorted((a, b) => a.metric.order - b.metric.order);
    }
 
-   records(): LogRecord[] {
+   toRecords(): LogRecord[] {
       return this.entries
          .filter((e) => e.dirty)
          .map((e) => {
@@ -99,6 +99,16 @@ export class Log {
       this.timestamp = record.timestamp;
       this.time = new TimeDetail(this.timestamp);
       this.entry = new LogEntry(metric, record);
+   }
+
+   toRecord(): LogRecord {
+      return {
+         id: this.id,
+         metricKey: this.entry.metric.key,
+         timestamp: $state.snapshot(this.timestamp),
+         tags: $state.snapshot(this.entry.tags),
+         value: $state.snapshot(this.entry.value!)
+      };
    }
 
    static fromDb(logs: LogRecord[], metrics: Metric[]) {

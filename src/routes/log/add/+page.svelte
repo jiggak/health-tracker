@@ -15,7 +15,7 @@
    async function onSave() {
       const db = await openDb();
 
-      for (const record of model.records()) {
+      for (const record of model.toRecords()) {
          await db.addLog(record);
       }
 

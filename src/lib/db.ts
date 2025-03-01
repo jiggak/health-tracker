@@ -6,7 +6,11 @@ export interface DataStore {
 
    putMetric(metric: Metric): Promise<void>;
 
-   addLog(entry: LogRecord): Promise<void>;
+   addLog(log: LogRecord): Promise<void>;
+
+   updateLog(log: LogRecord): Promise<void>;
+
+   deleteLog(id: number): Promise<void>;
 
    listLogs(startTs: number, endTs: number): Promise<LogRecord[]>;
 

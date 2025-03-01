@@ -23,6 +23,26 @@ class StaticDatabase implements DataStore {
       return Promise.resolve();
    }
 
+   updateLog(log: LogRecord) {
+      const index = records.findIndex((l) => l.id == log.id);
+      if (index < 0) {
+         return Promise.reject();
+      } else {
+         records[index] = log;
+         return Promise.resolve();
+      }
+   }
+
+   deleteLog(id: number) {
+      const index = records.findIndex((l) => l.id == id);
+      if (index < 0) {
+         return Promise.reject();
+      } else {
+         records.splice(index, 1);
+         return Promise.resolve();
+      }
+   }
+
    listLogs(startTs: number, endTs: number) {
       const results = records
          .filter((x) => x.timestamp >= startTs && x.timestamp <= endTs);
