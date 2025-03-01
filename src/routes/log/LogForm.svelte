@@ -1,6 +1,6 @@
 <script lang="ts">
    import { MetricType,type Favourite,type LogValue } from '$lib';
-   import { LogEntry } from './LogEntry.svelte';
+   import { LogEntry } from './models.svelte';
    import Tags from './Tags.svelte';
    import QuantityList from './QuantityList.svelte';
    import SingleOption from './SingleOption.svelte';

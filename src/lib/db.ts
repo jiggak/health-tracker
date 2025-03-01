@@ -1,4 +1,4 @@
-import type { LogEntry, Metric } from '$lib';
+import type { LogRecord, Metric } from '$lib';
 export { openDb } from './db-web';
 
 export interface DataStore {
@@ -6,7 +6,9 @@ export interface DataStore {
 
    putMetric(metric: Metric): Promise<void>;
 
-   addLogEntry(entry: LogEntry): Promise<void>;
+   addLog(entry: LogRecord): Promise<void>;
 
-   listLogEntries(startTs: number, endTs: number): Promise<LogEntry[]>;
+   listLogs(startTs: number, endTs: number): Promise<LogRecord[]>;
+
+   getLog(id: number): Promise<LogRecord>;
 }

@@ -1,4 +1,4 @@
-import type { LogEntry, Metric } from '$lib';
+import type { LogRecord, Metric } from '$lib';
 import type { DataStore } from './db';
 import { metrics } from './db-static'
 
@@ -27,7 +27,7 @@ class WebDatabase implements DataStore {
       });
    }
 
-   addLogEntry(entry: LogEntry): Promise<void> {
+   addLog(entry: LogRecord): Promise<void> {
       return new Promise((resolve, reject) => {
          const request = this.db.transaction('logEntries', 'readwrite')
                .objectStore('logEntries')
@@ -38,7 +38,7 @@ class WebDatabase implements DataStore {
       });
    }
 
-   listLogEntries(startTs: number, endTs: number): Promise<LogEntry[]> {
+   listLogs(startTs: number, endTs: number): Promise<LogRecord[]> {
       return new Promise((resolve, reject) => {
          const range = IDBKeyRange.bound(startTs, endTs);
 
@@ -48,7 +48,7 @@ class WebDatabase implements DataStore {
          const index = store.index('timestamp');
          const request = index.openCursor(range);
 
-         const result: LogEntry[] = [];
+         const result: LogRecord[] = [];
 
          request.onsuccess = (e) => {
             const cursor = request.result;
@@ -59,6 +59,17 @@ class WebDatabase implements DataStore {
                resolve(result);
             }
          };
+         request.onerror = () => reject(request.error);
+      });
+   }
+
+   getLog(id: number): Promise<LogRecord> {
+      return new Promise((resolve, reject) => {
+         const request = this.db.transaction('logEntries')
+            .objectStore('logEntries')
+            .get(id);
+
+         request.onsuccess = () => resolve(request.result);
          request.onerror = () => reject(request.error);
       });
    }

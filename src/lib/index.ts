@@ -74,7 +74,7 @@ export interface Favourite {
 
 export type LogEntryValue = LogValue | LogValue[] | KeyedValue;
 
-export interface LogEntry {
+export interface LogRecord {
    id?: number;
    metricKey: string;
    timestamp: number;

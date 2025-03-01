@@ -1,4 +1,4 @@
-import { MetricType, type LogEntry, type Metric } from '$lib';
+import { MetricType, type LogRecord, type Metric } from '$lib';
 import type { DataStore } from './db';
 
 class StaticDatabase implements DataStore {
@@ -18,15 +18,24 @@ class StaticDatabase implements DataStore {
       return Promise.resolve();
    }
 
-   addLogEntry(entry: LogEntry) {
-      logEntries.push(entry);
+   addLog(entry: LogRecord) {
+      records.push(entry);
       return Promise.resolve();
    }
 
-   listLogEntries(startTs: number, endTs: number) {
-      const results = logEntries
+   listLogs(startTs: number, endTs: number) {
+      const results = records
          .filter((x) => x.timestamp >= startTs && x.timestamp <= endTs);
       return Promise.resolve(results);
+   }
+
+   getLog(id: number) {
+      const result = records.find((x) => x.id == id);
+      if (result) {
+         return Promise.resolve(result);
+      } else {
+         return Promise.reject();
+      }
    }
 }
 
@@ -34,7 +43,7 @@ export function openDb():Promise<DataStore> {
    return Promise.resolve(new StaticDatabase());
 }
 
-const logEntries: LogEntry[] = [];
+const records: LogRecord[] = [];
 
 export const metrics: Metric[] = [
    {

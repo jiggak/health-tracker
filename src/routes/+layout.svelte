@@ -9,13 +9,13 @@
 
 {@render children()}
 
-<div class="dock" class:hidden={page.url.pathname == '/log'}>
+<div class="dock" class:hidden={page.data.hideDock}>
    <a href="/" class:dock-active={page.url.pathname == '/'}>
       <Icon name="home" />
       <span class="dock-label">Home</span>
    </a>
 
-   <a href="/log">
+   <a href="/log/add">
       <Icon name="plus" />
       <span class="dock-label">Add</span>
    </a>

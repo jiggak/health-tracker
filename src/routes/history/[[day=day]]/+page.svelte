@@ -45,10 +45,10 @@
             <div class="ml-2">{log.time.meridiem}</div>
          </div>
          <div class="list-col-grow">
-            <div class="font-semibold">{log.metric.label}</div>
-            <div>{log.value}</div>
+            <div class="font-semibold">{log.entry.metric.label}</div>
+            <div>{log.entry.value}</div>
             <div class="flex flex-wrap gap-2">
-               {#each log.tags as tag}
+               {#each log.entry.tags as tag}
                   <span class="badge badge-sm badge-primary">{tag}</span>
                {/each}
             </div>
