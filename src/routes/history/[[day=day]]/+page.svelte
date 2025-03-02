@@ -40,6 +40,11 @@
 <ul class="list rounded-box shadow-md">
    {#each data.logs as log}
       <li class="list-row">
+         <div class="text-lg text-center font-thin tabular-nums rounded-box bg-base-200 p-2">
+            <div>{log.time.hour}:{log.time.minute}</div>
+            <div class="text-2xl leading-6">{log.time.meridiem}</div>
+         </div>
+         <!--
          <div class="flex items-center text-lg font-thin tabular-nums rounded-box bg-base-200 p-2">
             <div>
                <div>{log.time.hour}</div>
@@ -48,6 +53,7 @@
             </div>
             <div class="ml-2">{log.time.meridiem}</div>
          </div>
+         -->
          <div class="list-col-grow">
             <div class="font-semibold">{log.entry.metric.label}</div>
             <div>{log.entry.value}</div>

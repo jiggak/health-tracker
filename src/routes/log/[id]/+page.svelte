@@ -9,19 +9,19 @@
    const { log } = data;
 
    function onCancel() {
-      goto('/');
+      goto('/history');
    }
 
    async function onSave() {
       const db = await openDb();
       await db.updateLog(log.toRecord());
-      goto('/');
+      goto('/history');
    }
 
    async function onDelete() {
       const db = await openDb();
       await db.deleteLog(log.id);
-      goto('/');
+      goto('/history');
    }
 </script>
 
