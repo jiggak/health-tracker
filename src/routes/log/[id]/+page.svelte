@@ -1,5 +1,6 @@
 <script lang="ts">
    import { goto } from '$app/navigation';
+   import Confirm from '$lib/Confirm.svelte';
    import { openDb } from '$lib/db';
    import DateTime from '../DateTime.svelte';
    import LogForm from '../LogForm.svelte';
@@ -7,6 +8,8 @@
 
    const { data }: PageProps = $props();
    const { log } = data;
+
+   let confirm: Confirm;
 
    function onCancel() {
       goto('/history');
@@ -18,10 +21,12 @@
       goto('/history');
    }
 
-   async function onDelete() {
-      const db = await openDb();
-      await db.deleteLog(log.id);
-      goto('/history');
+   function onDelete() {
+      confirm.open().then(async () => {
+         const db = await openDb();
+         await db.deleteLog(log.id);
+         goto('/history');
+      });
    }
 </script>
 
@@ -44,3 +49,5 @@
 <div class="dock">
    <button class="btn btn-secondary" onclick={onDelete}>Delete</button>
 </div>
+
+<Confirm bind:this={confirm} />
