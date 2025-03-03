@@ -1,4 +1,4 @@
-import type { Favourite, KeyedValue, LogEntryValue, LogRecord, LogValue, Metric } from '$lib';
+import { findOption, MetricType, type Favourite, type KeyedValue, type LogEntryValue, type LogRecord, type LogValue, type Metric, type QuantityValue } from '$lib';
 import dayjs from 'dayjs';
 
 export class LogEntry {
@@ -119,6 +119,24 @@ export class Log {
          }
          return new Log(metric, l);
       });
+   }
+
+   valueToString() {
+      if (this.entry.metric.metricType == MetricType.Grouped) {
+         const value = this.entry.value as KeyedValue;
+         const metric = this.entry.metric;
+
+         return Object.entries(value)
+            .map(([k, v]) => findOption(metric.metrics[k].options, v)!.label)
+            .join(', ');
+      } else if (this.entry.metric.metricType == MetricType.NamedQuantity) {
+         return this.entry.values()
+            .map((v) => v as QuantityValue)
+            .map((v) => `${v.name} ${v.amount} ${v.unit}`)
+            .join(', ');
+      }
+
+      return this.entry.value!.toString();
    }
 }
 

@@ -5,7 +5,7 @@
    import { goto } from '$app/navigation';
    import dayjs from 'dayjs';
 
-   let { data }: PageProps = $props();
+   const { data }: PageProps = $props();
 
    function onNavDay(val: number) {
       const date = dayjs(page.params.day)
@@ -56,7 +56,7 @@
          -->
          <div class="list-col-grow">
             <div class="font-semibold">{log.entry.metric.label}</div>
-            <div>{log.entry.value}</div>
+            <div>{log.valueToString()}</div>
             <div class="flex flex-wrap gap-2">
                {#each log.entry.tags as tag}
                   <span class="badge badge-sm badge-primary">{tag}</span>

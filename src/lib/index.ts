@@ -81,3 +81,7 @@ export interface LogRecord {
    value: LogEntryValue;
    tags: string[];
 }
+
+export function findOption(options: MetricOption[], val: LogValue) {
+   return options.find((o) => o.value == val);
+}
