@@ -24,17 +24,25 @@
    }
 </script>
 
-<div class="join">
-   <button class="join-item btn" onclick={() => onNavDay(-1)}>
-      <Icon name="chevron-left" />
-   </button>
-   <input type="date"
-      class="input input-ghost join-item"
-      value={page.params.day}
-      onchange={(e) => onSetDate(e.currentTarget.value)}/>
-   <button class="join-item btn" onclick={() => onNavDay(1)}>
-      <Icon name="chevron-right" />
-   </button>
+<div class="navbar shadow-md">
+   <div class="navbar-start">
+      <button class="btn" onclick={() => onNavDay(-1)}>
+         <Icon name="chevron-left" />
+      </button>
+   </div>
+
+   <div class="navbar-center">
+      <input type="date"
+         class="input input-ghost"
+         value={page.params.day}
+         onchange={(e) => onSetDate(e.currentTarget.value)}/>
+   </div>
+
+   <div class="navbar-end">
+      <button class="btn" onclick={() => onNavDay(1)}>
+         <Icon name="chevron-right" />
+      </button>
+   </div>
 </div>
 
 <ul class="list rounded-box shadow-md">
@@ -63,7 +71,7 @@
                {/each}
             </div>
          </div>
-         <button class="btn btn-square btn-ghost" onclick={() => onEdit(log.id)}>
+         <button class="btn btn-square" onclick={() => onEdit(log.id)}>
             <Icon name="pencil" />
          </button>
       </li>
