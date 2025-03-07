@@ -27,7 +27,7 @@
 <div class="navbar shadow-md">
    <div class="navbar-start">
       <button class="btn" onclick={() => onNavDay(-1)}>
-         <Icon name="chevron-left" />
+         <Icon name="arrow-left" />
       </button>
    </div>
 
@@ -40,7 +40,7 @@
 
    <div class="navbar-end">
       <button class="btn" onclick={() => onNavDay(1)}>
-         <Icon name="chevron-right" />
+         <Icon name="arrow-right" />
       </button>
    </div>
 </div>

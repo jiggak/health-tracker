@@ -61,7 +61,7 @@
             placeholder="New tag" />
 
          <button
-            class="btn btn-secondary join-item"
+            class="btn btn-primary join-item"
             onclick={() => addTag(newTag.value)}>
 
             Add
@@ -75,10 +75,10 @@
                   <span>{tag}</span>
                </div>
                <button
-                  class="btn btn-square btn-neutral btn-xs"
+                  class="btn btn-square btn-neutral btn-sm"
                   onclick={() => deleteTag(tag)}>
 
-                  <Icon name="trash" svgClass="size-5" />
+                  <Icon name="trash" svgClass="size-4" />
                </button>
             </li>
          {/each}

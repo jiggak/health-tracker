@@ -34,10 +34,10 @@
             <span>{value(val as QuantityValue)}</span>
          </div>
          <button
-            class="btn btn-square btn-neutral btn-xs"
+            class="btn btn-square btn-neutral btn-sm"
             onclick={() => removeValue(val)}>
 
-            <Icon name="trash" svgClass="size-5" />
+            <Icon name="trash" svgClass="size-4" />
          </button>
       </li>
    {:else}
