@@ -2,17 +2,20 @@
    import {
       faArrowLeft,
       faArrowRight,
+      faBook,
       faCalendarDays,
+      faCarrot,
       faHouse,
+      faMoon,
       faPlus,
+      faPrescriptionBottleMedical,
       faTrashCan,
       faPencil,
+      faPoop,
       faTriangleExclamation,
       type IconDefinition
    } from '@fortawesome/free-solid-svg-icons';
-
-   type IconName = 'home' | 'plus' | 'calendar' | 'trash' | 'pencil' |
-         'exclamation' | 'arrow-left' | 'arrow-right';
+   import { type IconName } from '$lib';
 
    interface Props {
       name: IconName,
@@ -30,12 +33,17 @@
    const icons: {[k in IconName]: IconDefinition} = {
       'arrow-left': faArrowLeft,
       'arrow-right': faArrowRight,
+      'book': faBook,
       'calendar': faCalendarDays,
       'home': faHouse,
       'plus': faPlus,
       'trash': faTrashCan,
       'pencil': faPencil,
-      'exclamation': faTriangleExclamation
+      'exclamation': faTriangleExclamation,
+      'poop': faPoop,
+      'carrot': faCarrot,
+      'medicine': faPrescriptionBottleMedical,
+      'moon': faMoon
    };
 
    const {

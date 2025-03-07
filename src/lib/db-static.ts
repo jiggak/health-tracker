@@ -69,6 +69,7 @@ export const metrics: Metric[] = [
    {
       key: 'stool',
       label: 'Stool',
+      icon: 'poop',
       order: 3,
       metricType: MetricType.Grouped,
       metrics: {
@@ -104,6 +105,7 @@ export const metrics: Metric[] = [
    {
       key: 'sleep',
       label: 'Sleep',
+      icon: 'moon',
       order: 2,
       metricType: MetricType.SingleOption,
       options: [
@@ -128,6 +130,7 @@ export const metrics: Metric[] = [
    {
       key: 'food',
       label: 'Food',
+      icon: 'carrot',
       order: 1,
       metricType: MetricType.Text,
       tags: ['brown bread', 'orange', 'peanut butter', 'granola', 'yogurt', 'oat milk', 'banana'],
@@ -139,6 +142,7 @@ export const metrics: Metric[] = [
    {
       key: 'medication',
       label: 'Medication',
+      icon: 'medicine',
       order: 4,
       metricType: MetricType.NamedQuantity,
       units: [
@@ -159,6 +163,7 @@ export const metrics: Metric[] = [
    {
       key: 'notes',
       label: 'Notes',
+      icon: 'book',
       order: 5,
       metricType: MetricType.Note
    }

@@ -1,6 +1,7 @@
 <script lang="ts">
    import { goto } from '$app/navigation';
    import { openDb } from '$lib/db';
+   import Icon from '$lib/Icon.svelte';
    import DateTime from '../DateTime.svelte';
    import LogForm from '../LogForm.svelte';
    import type { PageProps } from './$types';
@@ -43,14 +44,19 @@
 
 <div class="dock justify-start">
    {#each model.entries as entry, i}
-      <div class="indicator" class:dock-active={i == model.index}>
+      <button class="indicator"
+         class:dock-active={i == model.index}
+         onclick={() => model.index = i}>
+
          <span
-            class="indicator-item indicator-center status status-secondary"
+            class="indicator-item indicator-center status status-info"
             class:hidden={!entry.dirty}></span>
 
-         <button onclick={() => model.index = i}>
-            <span class="dock-label">{entry.metric.label}</span>
-         </button>
-      </div>
+         {#if entry.metric.icon}
+            <Icon name={entry.metric.icon} />
+         {/if}
+
+         <span class="dock-label">{entry.metric.label}</span>
+      </button>
    {/each}
 </div>

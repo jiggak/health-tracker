@@ -1,5 +1,9 @@
 // place files you want to import through the `$lib` alias in this folder.
 
+export type IconName = 'home' | 'plus' | 'calendar' | 'trash' | 'pencil' |
+   'exclamation' | 'arrow-left' | 'arrow-right' | 'poop' | 'carrot' |
+   'medicine' | 'moon' | 'book';
+
 interface MetricCommon {
    key: string;
    label: string;
@@ -7,6 +11,7 @@ interface MetricCommon {
    metricType: MetricType;
    tags?: string[];
    favourites?: Favourite[];
+   icon?: IconName;
 }
 
 export enum MetricType {
