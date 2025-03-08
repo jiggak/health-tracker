@@ -1,9 +1,10 @@
 <script lang="ts">
    let dialog: HTMLDialogElement;
-   const deferred = Promise.withResolvers<void>();
+   let deferred: PromiseWithResolvers<void>;
 
    export function open() {
       dialog.showModal();
+      deferred = Promise.withResolvers<void>();
       return deferred.promise;
    }
 

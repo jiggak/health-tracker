@@ -1,5 +1,6 @@
 <script lang="ts">
    import type { Favourite } from '$lib';
+    import Confirm from '$lib/Confirm.svelte';
    import Icon from '$lib/Icon.svelte';
 
    let { favourites, onFavouritesChanged, onFavouriteClick }: {
@@ -8,8 +9,12 @@
       onFavouriteClick(v:Favourite): void
    } = $props();
 
-   function removeFavourite(fav:Favourite) {
-      onFavouritesChanged(favourites.filter((f) => f != fav));
+   let confirm: Confirm;
+
+   function onDelete(fav:Favourite) {
+      confirm.open().then(() => {
+         onFavouritesChanged(favourites.filter((f) => f != fav));
+      });
    }
 </script>
 
@@ -23,10 +28,12 @@
          </div>
          <button
             class="btn btn-square btn-neutral btn-sm"
-            onclick={() => removeFavourite(fav)}>
+            onclick={() => onDelete(fav)}>
 
             <Icon name="trash" svgClass="size-4" />
          </button>
       </li>
    {/each}
 </ul>
+
+<Confirm bind:this={confirm} />
