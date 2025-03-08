@@ -2,6 +2,7 @@
    import { goto } from '$app/navigation';
    import Confirm from '$lib/Confirm.svelte';
    import { openDb } from '$lib/db';
+    import dayjs from 'dayjs';
    import DateTime from '../DateTime.svelte';
    import LogForm from '../LogForm.svelte';
    import type { PageProps } from './$types';
@@ -11,21 +12,27 @@
 
    let confirm: Confirm;
 
+   function goBack() {
+      const date = dayjs.unix(log.timestamp)
+         .format('YYYY-MM-DD');
+      goto(`/history/${date}`);
+   }
+
    function onCancel() {
-      goto('/history');
+      goBack();
    }
 
    async function onSave() {
       const db = await openDb();
       await db.updateLog(log.toRecord());
-      goto('/history');
+      goBack();
    }
 
    function onDelete() {
       confirm.open().then(async () => {
          const db = await openDb();
          await db.deleteLog(log.id);
-         goto('/history');
+         goBack();
       });
    }
 </script>
