@@ -1,4 +1,4 @@
-import { MetricType, type LogRecord, type Metric } from '$lib';
+import { MetricType, Quality, type LogRecord, type Metric } from '$lib';
 import type { DataStore } from './db';
 
 class StaticDatabase implements DataStore {
@@ -77,13 +77,14 @@ export const metrics: Metric[] = [
             metricType: MetricType.SingleOption,
             options: [
                { label: 'Select stool type', value: undefined },
-               { label: 'None', value: 0, },
-               { label: 'Separate hard lumps', value: 1 },
-               { label: 'Sausage shaped with cracks', value: 2 },
-               { label: 'Smooth sausage shaped', value: 3 },
-               { label: 'Soft blobs clear cut edges', value: 4 },
-               { label: 'Mushy with ragged edges', value: 5 },
-               { label: 'Liquid with no solids', value: 6 },
+               { label: 'None', value: 0, quality: Quality.Bad },
+               { label: 'Separate hard lumps', value: 1, quality: Quality.Bad },
+               { label: 'Lumpy and sausage like', value: 2, quality: Quality.Neutral },
+               { label: 'Sausage shaped with cracks', value: 3, quality: Quality.Good },
+               { label: 'Smooth sausage shaped', value: 4, quality: Quality.Good },
+               { label: 'Soft blobs clear cut edges', value: 5, quality: Quality.Neutral },
+               { label: 'Mushy with ragged edges', value: 6, quality: Quality.Bad },
+               { label: 'Liquid with no solids', value: 7, quality: Quality.Bad },
             ]
          },
          volume: {

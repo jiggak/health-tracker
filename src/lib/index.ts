@@ -55,9 +55,16 @@ export type Metric = MetricCommon & (
    | GroupedMetric
 )
 
+export enum Quality {
+   Good = 1,
+   Neutral = 0,
+   Bad = -1
+}
+
 export interface MetricOption {
    label: string;
    value: number|string|undefined;
+   quality?: Quality
 }
 
 export interface QuantityValue {

@@ -1,5 +1,6 @@
 <script lang="ts">
-   import type { LogValue, MetricOption } from '$lib';
+   import { Quality, type LogValue, type MetricOption } from '$lib';
+    import Quantity from './Quantity.svelte';
 
    let { options, value, onValueChanged }: {
       options: MetricOption[],
@@ -9,6 +10,14 @@
 
    const index = options.findIndex((o) => o.value == value);
    let selected = $state(index < 0 ? 0 : index);
+
+   function qualityClass(quality?: Quality) {
+      switch (quality) {
+         case Quality.Good: return 'good';
+         case Quality.Neutral: return 'neutral';
+         case Quality.Bad: return 'bad';
+      }
+   }
 </script>
 
 <p class="h-10 text-center">{options[selected].label}</p>
@@ -19,8 +28,11 @@
       onchange={() => onValueChanged(options[selected].value)}
       class="range range-primary [--range-fill:0] w-full" />
    <div class="dots">
-      {#each options as _, index}
-         <span class:selected={index == selected}></span>
+      {#each options as option, index}
+         <span
+            class={qualityClass(option.quality)}
+            class:selected={index == selected}>
+         </span>
       {/each}
    </div>
 </div>
@@ -43,6 +55,10 @@
          &.selected {
             visibility: hidden;
          }
+
+         &.good { background-color: var(--color-success); }
+         &.neutral { background-color: var(--color-warning); }
+         &.bad { background-color: var(--color-error); }
       }
    }
 </style>
