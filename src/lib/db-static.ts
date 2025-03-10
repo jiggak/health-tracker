@@ -49,6 +49,13 @@ class StaticDatabase implements DataStore {
       return Promise.resolve(results);
    }
 
+   listRecentLogs(count: number, metricKey: string) {
+      const results = records
+         .filter((r) => r.metricKey == metricKey)
+         .slice(0, count);
+      return Promise.resolve(results);
+   }
+
    getLog(id: number) {
       const result = records.find((x) => x.id == id);
       if (result) {

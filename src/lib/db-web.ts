@@ -6,92 +6,97 @@ class WebDatabase implements DataStore {
    constructor(private db: IDBDatabase) { }
 
    listMetrics(): Promise<Metric[]> {
-      return new Promise((resolve, reject) => {
-         const request = this.db.transaction('metrics')
-            .objectStore('metrics')
-            .getAll();
-
-         request.onsuccess = () => resolve(request.result);
-         request.onerror = () => reject(request.error);
-      });
+      return this.read('metrics', (store) => store.getAll());
    }
 
    putMetric(metric: Metric): Promise<void> {
-      return new Promise((resolve, reject) => {
-         const request = this.db.transaction('metrics', 'readwrite')
-            .objectStore('metrics')
-            .put(metric);
-
-         request.onsuccess = () => resolve();
-         request.onerror = () => reject(request.error);
-      });
+      return this.write('metrics', (store) => store.put(metric));
    }
 
    addLog(log: LogRecord): Promise<void> {
-      return new Promise((resolve, reject) => {
-         const request = this.db.transaction('logEntries', 'readwrite')
-            .objectStore('logEntries')
-            .add(log);
-
-         request.onsuccess = () => resolve();
-         request.onerror = () => reject(request.error);
-      });
+      return this.write('logEntries', (store) => store.add(log));
    }
 
    updateLog(log: LogRecord): Promise<void> {
-      return new Promise((resolve, reject) => {
-         const request = this.db.transaction('logEntries', 'readwrite')
-            .objectStore('logEntries')
-            .put(log);
-
-         request.onsuccess = () => resolve();
-         request.onerror = () => reject(request.error);
-      });
+      return this.write('logEntries', (store) => store.put(log));
    }
 
    deleteLog(id: number): Promise<void> {
-      return new Promise((resolve, reject) => {
-         const request = this.db.transaction('logEntries', 'readwrite')
-            .objectStore('logEntries')
-            .delete(id);
-
-         request.onsuccess = () => resolve();
-         request.onerror = () => reject(request.error);
-      });
+      return this.write('logEntries', (store) => store.delete(id));
    }
 
    listLogs(startTs: number, endTs: number): Promise<LogRecord[]> {
-      return new Promise((resolve, reject) => {
+      return this.cursor('logEntries', 'timestamp', (index) => {
          const range = IDBKeyRange.bound(startTs, endTs);
+         return index.openCursor(range);
+      });
+   }
 
-         const store = this.db.transaction('logEntries')
-            .objectStore('logEntries');
+   listRecentLogs(count: number, metricKey: string): Promise<LogRecord[]> {
+      return this.cursor('logEntries', 'metric_timestamp', (index) => {
+         const range = IDBKeyRange.bound([metricKey, -Infinity], [metricKey, Infinity]);
+         return index.openCursor(range, 'prev');
+      }, count);
+   }
 
-         const index = store.index('timestamp');
-         const request = index.openCursor(range);
+   getLog(id: number): Promise<LogRecord> {
+      return this.read('logEntries', (store) => store.get(id));
+   }
 
-         const result: LogRecord[] = [];
+   private read<T>(
+      storeName:string,
+      request: (objectStore: IDBObjectStore) => IDBRequest
+   ) {
+      return new Promise<T>((resolve, reject) => {
+         const objectStore = this.db.transaction(storeName)
+               .objectStore(storeName);
+
+         const req = request(objectStore);
+
+         req.onsuccess = () => resolve(req.result);
+         req.onerror = () => reject(req.error);
+      });
+   }
+
+   private write(
+      storeName:string,
+      request: (objectStore: IDBObjectStore) => IDBRequest
+   ) {
+      return new Promise<void>((resolve, reject) => {
+         const objectStore = this.db.transaction(storeName, 'readwrite')
+               .objectStore(storeName);
+
+         const req = request(objectStore);
+
+         req.onsuccess = () => resolve();
+         req.onerror = () => reject(req.error);
+      });
+   }
+
+   private cursor<T>(
+      storeName: string,
+      indexName: string,
+      openCursor: (index: IDBIndex) => IDBRequest,
+      limit?: number
+   ): Promise<T[]> {
+      return new Promise((resolve, reject) => {
+         const store = this.db.transaction(storeName)
+            .objectStore(storeName);
+
+         const index = store.index(indexName);
+         const request = openCursor(index);
+
+         const result: T[] = [];
 
          request.onsuccess = (e) => {
             const cursor = request.result;
-            if (cursor) {
+            if (cursor && (!limit || result.length < limit)) {
                result.push(cursor.value);
                cursor.continue();
             } else {
                resolve(result);
             }
          };
-         request.onerror = () => reject(request.error);
-      });
-   }
-
-   getLog(id: number): Promise<LogRecord> {
-      return new Promise((resolve, reject) => {
-         const request = this.db.transaction('logEntries')
-            .objectStore('logEntries')
-            .get(id);
-
-         request.onsuccess = () => resolve(request.result);
          request.onerror = () => reject(request.error);
       });
    }
@@ -112,6 +117,7 @@ function upgrade(request: IDBOpenDBRequest) {
    });
 
    store.createIndex('timestamp', 'timestamp');
+   store.createIndex('metric_timestamp', ['metricKey', 'timestamp']);
 }
 
 async function init(db: WebDatabase) {

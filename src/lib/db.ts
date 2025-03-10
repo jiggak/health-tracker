@@ -14,5 +14,7 @@ export interface DataStore {
 
    listLogs(startTs: number, endTs: number): Promise<LogRecord[]>;
 
+   listRecentLogs(count: number, metricKey: string): Promise<LogRecord[]>;
+
    getLog(id: number): Promise<LogRecord>;
 }
