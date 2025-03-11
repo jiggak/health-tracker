@@ -15,7 +15,7 @@
    function goBack() {
       const date = dayjs.unix(log.timestamp)
          .format('YYYY-MM-DD');
-      goto(`/history/${date}`);
+      goto(`/logs/${date}`);
    }
 
    function onCancel() {

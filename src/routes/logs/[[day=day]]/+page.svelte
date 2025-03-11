@@ -20,7 +20,7 @@
    }
 
    function onEdit(id: number) {
-      goto(`/log/${id}`);
+      goto(`/logs/${id}`);
    }
 </script>
 

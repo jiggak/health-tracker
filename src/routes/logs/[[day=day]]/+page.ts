@@ -1,12 +1,12 @@
 import { openDb } from '$lib/db';
 import { redirect } from '@sveltejs/kit';
 import dayjs from 'dayjs';
-import { Log } from '../../log/models.svelte';
+import { Log } from '../models.svelte';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ params }) => {
    if (!params.day) {
-      redirect(307, 'history/' + dayjs().format('YYYY-MM-DD'));
+      redirect(307, 'logs/' + dayjs().format('YYYY-MM-DD'));
    }
 
    const start = dayjs(params.day, 'YYYY-MM-DD');
