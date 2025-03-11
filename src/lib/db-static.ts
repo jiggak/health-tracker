@@ -18,8 +18,8 @@ class StaticDatabase implements DataStore {
       return Promise.resolve();
    }
 
-   addLog(entry: LogRecord) {
-      records.push(entry);
+   addLog(log: LogRecord) {
+      records.push(log);
       return Promise.resolve();
    }
 

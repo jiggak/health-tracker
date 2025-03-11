@@ -14,33 +14,33 @@ class WebDatabase implements DataStore {
    }
 
    addLog(log: LogRecord): Promise<void> {
-      return this.write('logEntries', (store) => store.add(log));
+      return this.write('logs', (store) => store.add(log));
    }
 
    updateLog(log: LogRecord): Promise<void> {
-      return this.write('logEntries', (store) => store.put(log));
+      return this.write('logs', (store) => store.put(log));
    }
 
    deleteLog(id: number): Promise<void> {
-      return this.write('logEntries', (store) => store.delete(id));
+      return this.write('logs', (store) => store.delete(id));
    }
 
    listLogs(startTs: number, endTs: number): Promise<LogRecord[]> {
-      return this.cursor('logEntries', 'timestamp', (index) => {
+      return this.cursor('logs', 'timestamp', (index) => {
          const range = IDBKeyRange.bound(startTs, endTs);
          return index.openCursor(range);
       });
    }
 
    listRecentLogs(count: number, metricKey: string): Promise<LogRecord[]> {
-      return this.cursor('logEntries', 'metric_timestamp', (index) => {
+      return this.cursor('logs', 'metric_timestamp', (index) => {
          const range = IDBKeyRange.bound([metricKey, -Infinity], [metricKey, Infinity]);
          return index.openCursor(range, 'prev');
       }, count);
    }
 
    getLog(id: number): Promise<LogRecord> {
-      return this.read('logEntries', (store) => store.get(id));
+      return this.read('logs', (store) => store.get(id));
    }
 
    private read<T>(
@@ -111,7 +111,7 @@ function upgrade(request: IDBOpenDBRequest) {
       keyPath: 'key'
    });
 
-   const store = db.createObjectStore('logEntries', {
+   const store = db.createObjectStore('logs', {
       keyPath: 'id',
       autoIncrement: true
    });
