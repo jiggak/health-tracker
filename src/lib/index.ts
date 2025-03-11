@@ -12,6 +12,7 @@ interface MetricCommon {
    tags?: string[];
    favourites?: Favourite[];
    icon?: IconName;
+   recent?: number;
 }
 
 export enum MetricType {

@@ -6,6 +6,7 @@
    import SingleOption from './SingleOption.svelte';
    import Favourites from './Favourites.svelte';
    import { openDb } from '$lib/db';
+   import Recents from './Recents.svelte';
 
    let { entry }: {
       entry: LogEntry
@@ -36,7 +37,7 @@
 </script>
 
 <div class="flex flex-col gap-4 m-4">
-   <h2 class="text-lg text-center">{entry.metric.label}</h2>
+   <h2 class="text-lg font-semibold text-center">{entry.metric.label}</h2>
 
    <div>
       {#if entry.metric.metricType == MetricType.SingleOption}
@@ -75,7 +76,7 @@
 
    {#if entry.metric.favourites}
       <div class="collapse collapse-arrow border border-base-300">
-         <input type="checkbox" checked />
+         <input type="radio" name="accordian" checked />
          <div class="collapse-title font-semibold">Favourites</div>
          <div class="collapse-content">
             <Favourites
@@ -86,6 +87,19 @@
             <button class="btn btn-outline" onclick={addFavourite}>
                Add to favourites
             </button>
+         </div>
+      </div>
+   {/if}
+
+   {#if entry.metric.recent}
+      <div class="collapse collapse-arrow border border-base-300">
+         <input type="radio" name="accordian" />
+         <div class="collapse-title font-semibold">Recent</div>
+         <div class="collapse-content">
+            <Recents
+               count={entry.metric.recent}
+               metricKey={entry.metric.key}
+               onRecentClick={(v) => { entry.value = v.value; entry.tags = v.tags; }}/>
          </div>
       </div>
    {/if}

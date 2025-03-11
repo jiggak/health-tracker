@@ -145,7 +145,8 @@ export const metrics: Metric[] = [
       favourites: [
          { value: 'Toast and orange', tags: ['brown bread', 'orange', 'peanut butter']},
          { value: 'Cereal and fruit', tags: ['granola', 'yogurt', 'oat milk', 'banana']}
-      ]
+      ],
+      recent: 5
    },
    {
       key: 'medication',
