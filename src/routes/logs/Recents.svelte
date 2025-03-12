@@ -20,8 +20,17 @@
 {:then logs}
    <ul class="list rounded-box shadow-md my-4">
       {#each logs as log}
-         <li class="list-row cursor-pointer" onclick={() => onRecentClick(log)}>
-            <span>{log.value}</span>
+         <li class="list-row">
+            <button class="list-col-grow text-left cursor-pointer"
+               onclick={() => onRecentClick(log)}>
+
+               <span>{log.value}</span>
+               <div class="flex flex-wrap gap-2">
+                  {#each log.tags as tag}
+                     <span class="badge badge-sm badge-soft badge-primary">{tag}</span>
+                  {/each}
+               </div>
+            </button>
          </li>
       {:else}
          <div role="alert" class="alert">
