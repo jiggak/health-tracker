@@ -131,7 +131,7 @@ async function init(db: WebDatabase) {
    return db;
 }
 
-export function openDb(): Promise<WebDatabase> {
+export function _openDb(): Promise<WebDatabase> {
    const request = indexedDB.open('health-tracker', 1);
 
    request.onupgradeneeded = () => upgrade(request);

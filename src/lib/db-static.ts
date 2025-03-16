@@ -66,7 +66,7 @@ class StaticDatabase implements DataStore {
    }
 }
 
-export function openDb():Promise<DataStore> {
+export function _openDb():Promise<DataStore> {
    return Promise.resolve(new StaticDatabase());
 }
 

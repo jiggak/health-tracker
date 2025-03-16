@@ -1,5 +1,5 @@
 import type { LogRecord, Metric } from '$lib';
-export { openDb } from './db-web';
+export { _openDb as openDb } from './db-web';
 
 export interface DataStore {
    listMetrics(): Promise<Metric[]>;
