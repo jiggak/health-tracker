@@ -1,3 +1,2 @@
-// Settings required by Tauri
-export const prerender = true;
+// Settings required by Tauri - SPA mode
 export const ssr = false;
