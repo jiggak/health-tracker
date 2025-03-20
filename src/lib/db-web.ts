@@ -107,10 +107,17 @@ function upgrade(request: IDBOpenDBRequest) {
 
    const db = request.result;
 
+   createMetricsStore(db);
+   createLogsStore(db);
+}
+
+function createMetricsStore(db: IDBDatabase) {
    db.createObjectStore('metrics', {
       keyPath: 'key'
    });
+}
 
+function createLogsStore(db: IDBDatabase) {
    const store = db.createObjectStore('logs', {
       keyPath: 'id',
       autoIncrement: true

@@ -1,5 +1,17 @@
-<h1 class="text-lg">Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<script lang="ts">
+   import Chart from './Chart.svelte';
+   import type { PageProps } from './$types';
 
-<button class="btn">Testing</button>
-<input type="text" placeholder="Type here" class="input" />
+   const { data }: PageProps = $props();
+   const { tiles } = data;
+</script>
+
+{#each tiles as tile}
+   {#if tile.type == 'line-chart'}
+      {#await tile.data}
+         <p>Loading chart</p>
+      {:then chartOptions}
+         <Chart options={chartOptions} />
+      {/await}
+   {/if}
+{/each}
