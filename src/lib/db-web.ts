@@ -1,6 +1,5 @@
 import type { LogRecord, Metric } from '$lib';
-import type { DataStore } from './db';
-import { metrics } from './db-static'
+import { init, type DataStore } from './db';
 
 class WebDatabase implements DataStore {
    constructor(private db: IDBDatabase) { }
@@ -125,17 +124,6 @@ function createLogsStore(db: IDBDatabase) {
 
    store.createIndex('timestamp', 'timestamp');
    store.createIndex('metric_timestamp', ['metricKey', 'timestamp']);
-}
-
-async function init(db: WebDatabase) {
-   const existing = await db.listMetrics();
-   if (existing.length == 0) {
-      console.log('adding sample data');
-      for (const metric of metrics) {
-         await db.putMetric(metric);
-      }
-   }
-   return db;
 }
 
 export function _openDb(): Promise<WebDatabase> {

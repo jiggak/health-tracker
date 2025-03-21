@@ -2,7 +2,7 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "health-tracker",
   "version": "0.1.0",
-  "identifier": "com.tauri.dev",
+  "identifier": "io.kropf.health-tracker",
   "build": {
     "frontendDist": "../build",
     "devUrl": "http://localhost:5173",
