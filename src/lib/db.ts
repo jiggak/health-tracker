@@ -1,7 +1,6 @@
 import type { LogRecord, Metric } from '$lib';
-import { metrics } from './db-static'
-// export { _openDb as openDb } from './db-web';
-export { _openDb as openDb } from './db-sql';
+import { metrics } from './db-static';
+export { _openDb as openDb } from 'db-impl';
 
 export interface DataStore {
    listMetrics(): Promise<Metric[]>;
