@@ -108,7 +108,7 @@ export const metrics: Metric[] = [
             ]
          }
       },
-      tags: ['Mucus', 'Thin']
+      tags: ['Mucus', 'Thin', 'Blood']
    },
    {
       key: 'sleep',
@@ -130,9 +130,12 @@ export const metrics: Metric[] = [
          { label: 'More than 9 hours', value: 10 },
       ],
       tags: [
+         'bad dream/nightmare',
+         'toss & turn',
+         'restless',
          'difficulty falling asleep',
-         'waking during sleep',
-         'toss & turn'
+         'tired after waking up',
+         'waking up during sleep'
       ]
    },
    {
@@ -141,10 +144,10 @@ export const metrics: Metric[] = [
       icon: 'carrot',
       order: 1,
       metricType: MetricType.Text,
-      tags: ['brown bread', 'orange', 'peanut butter', 'granola', 'yogurt', 'oat milk', 'banana'],
+      tags: ['Egg','Bread','Tomato','Guacamole','Yogurt (fruits)','Cereal','Banana','Orange','Salmon','Green beans','White rice','Shrimp','Carrots','Kimchi','Raspberry','Cheese (hard)','Bacon','Milk','Cucumber','Radish','Blueberry','Turkey','Mashed Potato','Gravy','Peas','Ham','Yogurt (plain)','Pasta','Cheese sauce','Seaweed','Tuna','Mayonnaise','Cheese spread','Tortilla chips','Cheese dip','Celery','Potatoes','Sausage','Edamame','Fries','Butter','English muffin','Lettuce','Butternut squash','Apple','Apple vinegar','Avocado','Spring onion','Onion','Corn','Ketchup','Brown rice','Beans','Beef','Snap peas','Broccoli','Hummus','Chicken','Bell pepper','Tortilla','Peanut butter','Gnocchi','Tomato sauce','Popcorn','Salsa','Tomato (canned)','Mushroom','Olive','Kale','Beetroot','Kiwi','Trout','Quinoa','Grapefruit','Oat milk','Leek','Cheese (soft)','Pie crust','Almond milk','Asparagus','Brussels sprout','Ranch dressing','Garlic','Grapes','Cream cheese','Pepperoni','Capers','Pancakes','Cauliflower','Coleslaw','Soy sauce','Oyster sauce','Ginger','Strawberry','Raisin','Pineapple','Walnut','Flour','Mustard','Pickles','Mango','Tempeh','Pork','Parsnip','Pear','Lemon','Mint','Blackberry','Chocolate milk','Jam','Mozzarella','Hot Dog (sausage, bun)','Sesame seeds','Cracker','Basil','Tomato (sundried)','Granola bar','Zucchini','Chips (potato)','Feta','Tomato (paste)','Sherbet','Cherry','Cantaloupe','Honeydew','Spinach','Croissant','Sour cream','Peach','Sweet potato','Ice cream','Barbecue sauce','Plum','Clarified butter','Brown sugar','Yogurt (lactose free)','Rice noodles','Psyllium husks','Bread (gluten free)','Pumpkin','Bagel','Cookie','Brown bread','Pretzels','Cashew','Cranberry','Cream','Sunflower seeds','tortilla (gluten free)','Orange juice','Alcohol','Cabbage','Lentils','Oats','Rice vinegar','Beer','Sugar','Vanilla','Chestnut','Coconut milk','Clementine','Honey','Curry (sauce)','Maple syrup','Almonds','Sourdough bread','Balsamic vinegar','Cornmeal','Garlic bread','Muffin','Tofu','Granola'],
       favourites: [
-         { value: 'Toast and orange', tags: ['brown bread', 'orange', 'peanut butter']},
-         { value: 'Cereal and fruit', tags: ['granola', 'yogurt', 'oat milk', 'banana']}
+         { value: 'Toast and orange', tags: ['Brown bread', 'Orange', 'Peanut butter']},
+         { value: 'Cereal and fruit', tags: ['Granola', 'Yogurt (plain)', 'Oat milk', 'Banana']}
       ],
       recent: 5
    },
