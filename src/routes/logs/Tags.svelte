@@ -10,6 +10,8 @@
 
    let tagsEditor:TagsEditor;
 
+   values = values ?? [];
+
    function tagSelected(tag:string) {
       return values.indexOf(tag) >= 0;
    }
