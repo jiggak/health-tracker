@@ -1,6 +1,6 @@
 <script lang="ts">
    import type { Favourite } from '$lib';
-    import Confirm from '$lib/Confirm.svelte';
+   import Confirm from '$lib/Confirm.svelte';
    import Icon from '$lib/Icon.svelte';
 
    let { favourites, onFavouritesChanged, onFavouriteClick }: {

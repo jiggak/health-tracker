@@ -35,24 +35,24 @@
 <div class="join w-full">
    <input bind:this={name}
       onchange={onFieldChange}
-      class="input join-item w-full"
+      class="input validator join-item w-full"
       type="text"
       required />
 
    <input bind:this={amount}
       onchange={onFieldChange}
-      class="input join-item w-20"
+      class="input validator join-item w-20"
       type="number"
       required />
 
    <select bind:this={unit}
       onchange={onFieldChange}
-      class="select join-item w-40"
+      class="select validator join-item w-40"
       required>
 
       <option></option>
 
-      {#each units! as unit}
+      {#each units as unit}
          <option>{unit}</option>
       {/each}
    </select>

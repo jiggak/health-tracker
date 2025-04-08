@@ -1,8 +1,8 @@
 <script lang="ts">
-   import { MetricType,type Favourite,type LogValue } from '$lib';
+   import { MetricType, type Favourite,type LogValue, type QuantityValue } from '$lib';
    import { LogEntry } from './models.svelte';
    import Tags from './Tags.svelte';
-   import QuantityList from './QuantityList.svelte';
+   import Quantity from './Quantity.svelte';
    import SingleOption from './SingleOption.svelte';
    import Favourites from './Favourites.svelte';
    import { openDb } from '$lib/db';
@@ -43,15 +43,15 @@
       {#if entry.metric.metricType == MetricType.SingleOption}
          <SingleOption
             options={entry.metric.options}
-            value={entry.value as LogValue|undefined}
+            value={entry.value as LogValue}
             onValueChanged={(val) => entry.value = val} />
       {:else if entry.metric.metricType == MetricType.Text}
          <input class="input w-full" type="text" bind:value={entry.value} />
       {:else if entry.metric.metricType == MetricType.NamedQuantity}
-         <QuantityList
+         <Quantity
             units={entry.metric.units}
-            values={entry.values()}
-            onValuesChanged={(v) => entry.value = v} />
+            value={entry.value as QuantityValue}
+            onValueChange={(v) => entry.value = v} />
       {:else if entry.metric.metricType == MetricType.Note}
          <textarea class="textarea w-full" bind:value={entry.value}></textarea>
       {:else if entry.metric.metricType == MetricType.Grouped}

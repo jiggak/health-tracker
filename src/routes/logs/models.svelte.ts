@@ -6,9 +6,6 @@ export class LogEntry {
    value?: LogEntryValue = $state();
    tags: string[] = $state([]);
    dirty: boolean = $derived.by(() => {
-      if (Array.isArray(this.value)) {
-         return (this.value as LogValue[]).length > 0;
-      }
       return this.value !== null
          && this.value !== undefined
          && this.value !== '';
@@ -20,14 +17,6 @@ export class LogEntry {
          this.value = record.value;
          this.tags = record.tags;
       }
-   }
-
-   values(): LogValue[] {
-      if (!this.value) {
-         return [];
-      }
-
-      return this.value as LogValue[];
    }
 
    getKeyValue(key: string) {
@@ -130,10 +119,9 @@ export class Log {
             .map(([k, v]) => findOption(metric.metrics[k].options, v)!.label)
             .join(', ');
       } else if (this.entry.metric.metricType == MetricType.NamedQuantity) {
-         return this.entry.values()
-            .map((v) => v as QuantityValue)
-            .map((v) => `${v.name} ${v.amount} ${v.unit}`)
-            .join(', ');
+         const value = this.entry.value as QuantityValue;
+
+         return `${value.name} ${value.amount} ${value.unit}`;
       }
 
       return this.entry.value!.toString();

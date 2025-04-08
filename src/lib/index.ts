@@ -85,7 +85,7 @@ export interface Favourite {
    tags: string[];
 }
 
-export type LogEntryValue = LogValue | LogValue[] | KeyedValue;
+export type LogEntryValue = LogValue | KeyedValue;
 
 export interface LogRecord {
    id?: number;
