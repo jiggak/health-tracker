@@ -3,7 +3,7 @@
 
    let { children } = $props();
 
-   let dialog:HTMLDialogElement = $state()!
+   let dialog: HTMLDialogElement = $state()!;
 
    export function open() {
       dialog.showModal();
@@ -15,7 +15,7 @@
 </script>
 
 <dialog class="modal" bind:this={dialog}>
-   <div class="modal-box w-full h-full p-0">
+   <div class="modal-box p-0">
       {@render children?.()}
    </div>
 </dialog>

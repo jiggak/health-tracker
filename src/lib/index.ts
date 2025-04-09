@@ -2,17 +2,22 @@
 
 export type IconName = 'home' | 'plus' | 'calendar' | 'trash' | 'pencil' |
    'exclamation' | 'arrow-left' | 'arrow-right' | 'poop' | 'carrot' |
-   'medicine' | 'moon' | 'book';
+   'medicine' | 'moon' | 'book' | 'search' | 'clear';
 
 interface MetricCommon {
    key: string;
    label: string;
    order: number;
    metricType: MetricType;
-   tags?: string[];
+   tags?: MetricTags;
    favourites?: Favourite[];
    icon?: IconName;
    recent?: number;
+}
+
+interface MetricTags {
+   values: string[];
+   search?: boolean;
 }
 
 export enum MetricType {

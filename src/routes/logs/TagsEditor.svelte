@@ -11,7 +11,7 @@
    let tags:string[] = $state()!;
 
    export function open(tags_:string[]) {
-      tags = tags_;
+      tags = tags_.toSorted();
       modal.open();
    }
 
@@ -43,18 +43,18 @@
 </script>
 
 <Modal bind:this={modal}>
-   <div class="navbar shadow-md">
-      <div class="navbar-start">
-         <button class="btn" onclick={() => modal.close()}>Cancel</button>
+   <div class="flex flex-col max-h-dvh">
+      <div class="navbar shadow-md">
+         <div class="navbar-start">
+            <button class="btn" onclick={() => modal.close()}>Cancel</button>
+         </div>
+
+         <div class="navbar-end">
+            <button class="btn btn-primary" onclick={save}>Save</button>
+         </div>
       </div>
 
-      <div class="navbar-end">
-         <button class="btn btn-primary" onclick={save}>Save</button>
-      </div>
-   </div>
-
-   <div class="p-4">
-      <div class="join w-full">
+      <div class="join w-full p-2">
          <input bind:this={newTag}
             onkeydown={onNewTagKeyPress}
             class="input input-bordered join-item w-full"
@@ -68,7 +68,7 @@
          </button>
       </div>
 
-      <ul class="list rounded-box shadow-md">
+      <ul class="list rounded-box shadow-md flex-1 overflow-y-scroll">
          {#each tags as tag}
             <li class="list-row">
                <div class="list-col-grow flex flex-col justify-center">

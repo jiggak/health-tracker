@@ -26,7 +26,7 @@
    }
 
    async function setTags(tags: string[]) {
-      entry.metric.tags = tags;
+      entry.metric.tags!.values = tags;
       await updateMetric();
    }
 
@@ -68,7 +68,8 @@
 
    {#if entry.metric.tags}
       <Tags
-         tags={entry.metric.tags}
+         tags={entry.metric.tags.values}
+         search={entry.metric.tags.search == true}
          onTagsChanged={async (tags) => await setTags(tags)}
          values={entry.tags}
          onValuesChanged={(tags) => entry.tags = tags} />

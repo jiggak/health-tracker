@@ -5,7 +5,9 @@
       faBook,
       faCalendarDays,
       faCarrot,
+      faCircleXmark,
       faHouse,
+      faMagnifyingGlass,
       faMoon,
       faPlus,
       faPrescriptionBottleMedical,
@@ -43,7 +45,9 @@
       'poop': faPoop,
       'carrot': faCarrot,
       'medicine': faPrescriptionBottleMedical,
-      'moon': faMoon
+      'moon': faMoon,
+      'search': faMagnifyingGlass,
+      'clear': faCircleXmark
    };
 
    const {
