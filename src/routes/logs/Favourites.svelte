@@ -18,7 +18,7 @@
    }
 </script>
 
-<ul class="list rounded-box shadow-md my-4">
+<ul class="list rounded-box shadow-md">
    {#each favourites as fav}
       <li class="list-row">
          <button class="list-col-grow text-left cursor-pointer"
