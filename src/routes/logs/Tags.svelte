@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Icon from '$lib/Icon.svelte';
+   import Icon from '$lib/Icon.svelte';
    import TagsEditor from './TagsEditor.svelte';
 
    let { tags, search, values, onTagsChanged, onValuesChanged }: {
@@ -18,6 +18,7 @@
    // search results
    let results: string[] = $state([]);
 
+   // svelte-ignore non_reactive_update
    let searchField: HTMLInputElement;
 
    function tagSelected(tag:string) {
@@ -33,8 +34,11 @@
          onValuesChanged([...values, tag]);
       }
 
-      results = [];
-      searchField.value = '';
+      if (search) {
+         results = [];
+         searchField.value = '';
+         searchField.focus();
+      }
    }
 
    function onSearch(term: string) {
@@ -60,7 +64,7 @@
    <detail class="dropdown" class:dropdown-open={results.length > 0}>
       <ul class="dropdown-content menu rounded-box bg-base-200 w-full">
          {#each results as tag}
-            <li><a onclick={() => toggleTag(tag)}>{tag}</a></li>
+            <li><button onclick={() => toggleTag(tag)}>{tag}</button></li>
          {/each}
       </ul>
    </detail>
