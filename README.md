@@ -36,3 +36,37 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+
+## Android
+
+Env vars tauri requires to build android app
+
+```bash
+export JAVA_HOME=/opt/android-studio/jbr
+export ANDROID_HOME=$HOME/Android/Sdk
+export NDK_HOME=$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)
+```
+
+To get `keytool` from android jdk in the PATH
+
+```bash
+export PATH=$JAVA_HOME/bin:$PATH
+```
+
+To get `adb` in the PATH
+
+```bash
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+```
+
+Generate keystore file (do this once)
+
+```bash
+keytool -genkey -v -keystore keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+```
+
+Re-generate app icons
+
+```bash
+npm run tauri icon icon.png
+```
