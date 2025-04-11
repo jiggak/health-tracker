@@ -80,7 +80,9 @@ class SqlDatabase implements DataStore {
 
    async listRecentLogs(count: number, metricKey: string): Promise<LogRecord[]> {
       const records = await this.db.select<SqlLogRecord[]>(
-         'SELECT * FROM logs WHERE metric_key = $1 LIMIT $2',
+         'SELECT * FROM logs WHERE metric_key = $1' +
+         ' order by timestamp desc' +
+         ' LIMIT $2',
          [metricKey, count]
       );
 
