@@ -2,10 +2,11 @@
    import { goto } from '$app/navigation';
    import Confirm from '$lib/Confirm.svelte';
    import { openDb } from '$lib/db';
-    import dayjs from 'dayjs';
+   import dayjs from 'dayjs';
    import DateTime from '../DateTime.svelte';
    import LogForm from '../LogForm.svelte';
    import type { PageProps } from './$types';
+   import Shell from '../../Shell.svelte';
 
    const { data }: PageProps = $props();
    const { log } = data;
@@ -37,24 +38,26 @@
    }
 </script>
 
-<div class="navbar shadow-md">
-   <div class="navbar-start">
-      <button class="btn" onclick={onCancel}>Cancel</button>
-   </div>
+<Shell>
+   {#snippet navbar()}
+      <div class="navbar-start">
+         <button class="btn" onclick={onCancel}>Cancel</button>
+      </div>
 
-   <div class="navbar-center">
-      <DateTime bind:timestamp={log.timestamp} />
-   </div>
+      <div class="navbar-center">
+         <DateTime bind:timestamp={log.timestamp} />
+      </div>
 
-   <div class="navbar-end">
-      <button class="btn btn-primary" onclick={onSave}>Save</button>
-   </div>
-</div>
+      <div class="navbar-end">
+         <button class="btn btn-primary" onclick={onSave}>Save</button>
+      </div>
+   {/snippet}
 
-<LogForm entry={log.entry} />
+   <LogForm entry={log.entry} />
 
-<div class="dock">
-   <button class="btn btn-secondary" onclick={onDelete}>Delete</button>
-</div>
+   {#snippet dock()}
+      <button class="btn btn-secondary" onclick={onDelete}>Delete</button>
+   {/snippet}
+</Shell>
 
 <Confirm bind:this={confirm} />
