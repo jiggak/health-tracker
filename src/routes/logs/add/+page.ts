@@ -6,7 +6,6 @@ export const load: PageLoad = async () => {
    const db = await openDb();
    const metrics = await db.listMetrics();
    return {
-      model: new NewLogs(metrics),
-      hideDock: true
+      model: new NewLogs(metrics)
    };
 }

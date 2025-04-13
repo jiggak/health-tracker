@@ -1,7 +1,7 @@
 <script lang="ts">
    import Chart from './Chart.svelte';
    import type { PageProps } from './$types';
-    import Shell from './Shell.svelte';
+   import Shell from './Shell.svelte';
 
    const { data }: PageProps = $props();
    const { tiles } = data;

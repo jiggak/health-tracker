@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">health-tracker</string>
-    <string name="main_activity_title">health-tracker</string>
+    <string name="app_name">Health Tracker</string>
+    <string name="main_activity_title">Health Tracker</string>
 </resources>

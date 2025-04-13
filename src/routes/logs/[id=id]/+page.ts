@@ -11,7 +11,6 @@ export const load: PageLoad = async ({ params }) => {
    const metric = metrics.find((m) => m.key == record.metricKey)!;
 
    return {
-      log: new Log(metric, record),
-      hideDock: true
+      log: new Log(metric, record)
    };
 }
