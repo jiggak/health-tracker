@@ -50,7 +50,7 @@
    <ul class="list rounded-box shadow-md">
       {#each data.logs as log}
          <li class="list-row">
-            <div class="text-lg text-center font-thin tabular-nums rounded-box bg-base-200 p-2">
+            <div class="self-center text-lg text-center font-thin tabular-nums rounded-box bg-base-200 p-2">
                <div>{log.time.hour}:{log.time.minute}</div>
                <div class="text-2xl leading-6">{log.time.meridiem}</div>
             </div>
@@ -73,7 +73,7 @@
                   {/each}
                </div>
             </div>
-            <button class="btn btn-neutral btn-square" onclick={() => onEdit(log.id)}>
+            <button class="self-center btn btn-neutral btn-square" onclick={() => onEdit(log.id)}>
                <Icon name="pencil" />
             </button>
          </li>
