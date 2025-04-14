@@ -20,7 +20,7 @@
    {@render children()}
 </div>
 
-<div class="dock" style="position: unset">
+<div class="dock bg-base-300" style="position: unset">
    {#if dock}
       {@render dock()}
    {:else}

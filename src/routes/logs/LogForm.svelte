@@ -85,7 +85,7 @@
                onFavouritesChanged={async (v) => await setFavourites(v)}
                onFavouriteClick={(v) => { entry.value = v.value; entry.tags = v.tags; }}/>
 
-            <button class="btn btn-outline mt-4" onclick={addFavourite}>
+            <button class="btn btn-neutral mt-4" onclick={addFavourite}>
                Add to favourites
             </button>
          </div>

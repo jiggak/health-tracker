@@ -18,7 +18,7 @@
 {#await listRecent()}
    <p>Loading</p>
 {:then logs}
-   <ul class="list rounded-box shadow-md my-4">
+   <ul class="list rounded-box shadow-md">
       {#each logs as log}
          <li class="list-row">
             <button class="list-col-grow text-left cursor-pointer"

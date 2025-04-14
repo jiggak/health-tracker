@@ -28,7 +28,7 @@
 <Shell>
    {#snippet navbar()}
       <div class="navbar-start">
-         <button class="btn" onclick={onCancel}>Cancel</button>
+         <button class="btn btn-neutral" onclick={onCancel}>Cancel</button>
       </div>
 
       <div class="navbar-center">

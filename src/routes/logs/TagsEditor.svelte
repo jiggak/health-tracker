@@ -46,7 +46,7 @@
    <div class="flex flex-col max-h-dvh">
       <div class="navbar shadow-md">
          <div class="navbar-start">
-            <button class="btn" onclick={() => modal.close()}>Cancel</button>
+            <button class="btn btn-neutral" onclick={() => modal.close()}>Cancel</button>
          </div>
 
          <div class="navbar-end">

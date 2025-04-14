@@ -28,7 +28,7 @@
 <Shell>
    {#snippet navbar()}
       <div class="navbar-start">
-         <button class="btn" onclick={() => onNavDay(-1)}>
+         <button class="btn btn-neutral" onclick={() => onNavDay(-1)}>
             <Icon name="arrow-left" />
          </button>
       </div>
@@ -41,7 +41,7 @@
       </div>
 
       <div class="navbar-end">
-         <button class="btn" onclick={() => onNavDay(1)}>
+         <button class="btn btn-neutral" onclick={() => onNavDay(1)}>
             <Icon name="arrow-right" />
          </button>
       </div>
@@ -73,7 +73,7 @@
                   {/each}
                </div>
             </div>
-            <button class="btn btn-square" onclick={() => onEdit(log.id)}>
+            <button class="btn btn-neutral btn-square" onclick={() => onEdit(log.id)}>
                <Icon name="pencil" />
             </button>
          </li>
