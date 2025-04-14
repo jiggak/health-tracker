@@ -111,21 +111,21 @@ export class Log {
    }
 
    valueToString() {
-      if (this.entry.metric.metricType == MetricType.Grouped) {
-         const value = this.entry.value as KeyedValue;
-         const metric = this.entry.metric;
-
-         return Object.entries(value)
-            .map(([k, v]) => findOption(metric.metrics[k].options, v)!.label)
-            .join(', ');
-      } else if (this.entry.metric.metricType == MetricType.NamedQuantity) {
-         const value = this.entry.value as QuantityValue;
-
-         return `${value.name} ${value.amount} ${value.unit}`;
-      }
-
-      return this.entry.value!.toString();
+      return valueToString(this.entry.metric, this.entry.value!);
    }
+}
+
+export function valueToString(metric: Metric, value: LogEntryValue) {
+   if (metric.metricType == MetricType.Grouped) {
+      return Object.entries(value)
+         .map(([k, v]) => findOption(metric.metrics[k].options, v)!.label)
+         .join(', ');
+   } else if (metric.metricType == MetricType.NamedQuantity) {
+      const val = value as QuantityValue;
+      return `${val.name} ${val.amount} ${val.unit}`;
+   }
+
+   return value.toString();
 }
 
 class TimeDetail {

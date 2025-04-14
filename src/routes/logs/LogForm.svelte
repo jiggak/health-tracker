@@ -81,6 +81,7 @@
          <div class="collapse-title font-semibold">Favourites</div>
          <div class="collapse-content">
             <Favourites
+               metric={entry.metric}
                favourites={entry.metric.favourites}
                onFavouritesChanged={async (v) => await setFavourites(v)}
                onFavouriteClick={(v) => { entry.value = v.value; entry.tags = v.tags; }}/>
