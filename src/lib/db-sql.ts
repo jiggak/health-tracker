@@ -22,7 +22,7 @@ class SqlDatabase implements DataStore {
    constructor(private db: Database) { }
 
    async listMetrics(): Promise<Metric[]> {
-      const records = await this.db.select<SqlMetric[]>('select * from metrics');
+      const records = await this.db.select<SqlMetric[]>('SELECT * FROM metrics');
 
       return records.map((r) => ({
          key: r.metric_key,
@@ -36,11 +36,29 @@ class SqlDatabase implements DataStore {
    async putMetric(metric: Metric): Promise<void> {
       const { key, label, order, metricType, ...properties } = metric;
 
-      await this.db.execute(
-         'INSERT INTO metrics (metric_key, label, position, metric_type, properties)' +
-         ' VALUES ($1, $2, $3, $4, $5)',
-         [key, label, order, metricType, JSON.stringify(properties)]
+      const exists = await this.db.select<boolean>(
+         'SELECT EXISTS (' +
+         '   SELECT 1 FROM metrics WHERE metric_key = $1' +
+         ')', [key]
       );
+
+      if (exists) {
+         await this.db.execute(
+            'UPDATE metrics SET' +
+            ' label = $2,' +
+            ' position = $3,' +
+            ' metric_type = $4,' +
+            ' properties = $5' +
+            ' WHERE metric_key = $1',
+            [key, label, order, metricType, JSON.stringify(properties)]
+         );
+      } else {
+         await this.db.execute(
+            'INSERT INTO metrics (metric_key, label, position, metric_type, properties)' +
+            ' VALUES ($1, $2, $3, $4, $5)',
+            [key, label, order, metricType, JSON.stringify(properties)]
+         );
+      }
    }
 
    async addLog(log: LogRecord): Promise<void> {
