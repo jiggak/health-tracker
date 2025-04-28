@@ -43,14 +43,15 @@ export const load: PageLoad = async () => {
 async function loadLineChart(db: DataStore, tile: LineChartTile): Promise<LineChartOpts> {
    const labels = daysRange(tile.days, tile.dateFormat);
 
-   const end = dayjs().endOf('day').unix();
-   const start = dayjs().add(-tile.days, 'day').unix();
+   const end = dayjs().endOf('day');
+   const start = end.add(-tile.days, 'day');
 
-   const logs = await db.listLogs(start, end);
+   const logs = await db.listLogs(start.unix(), end.unix());
 
    const datasets = tile.dataSources.map((ds) => {
       const filteredLogs = logs.filter((l) => l.metricKey == ds.metric);
       const data = groupByDate(filteredLogs, tile.dateFormat, ds.valueKey, ds.scale);
+      console.log(ds.metric, data)
 
       return {
          label: ds.label,
