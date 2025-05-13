@@ -51,7 +51,6 @@ async function loadLineChart(db: DataStore, tile: LineChartTile): Promise<LineCh
    const datasets = tile.dataSources.map((ds) => {
       const filteredLogs = logs.filter((l) => l.metricKey == ds.metric);
       const data = groupByDate(filteredLogs, tile.dateFormat, ds.valueKey, ds.scale);
-      console.log(ds.metric, data)
 
       return {
          label: ds.label,
@@ -77,6 +76,10 @@ function groupByDate(logs: LogRecord[], dateFormat: string, valueKey?: string, s
          logValue = (log.value as KeyedValue)[valueKey] as number;
       } else {
          logValue = log.value as number;
+      }
+
+      if (logValue === undefined) {
+         logValue = 0;
       }
 
       if (scale) {
