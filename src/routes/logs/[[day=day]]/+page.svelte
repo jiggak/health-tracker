@@ -13,11 +13,11 @@
          .add(val, 'day')
          .format('YYYY-MM-DD');
 
-      goto(date);
+      onSetDate(date);
    }
 
    function onSetDate(date: string) {
-      goto(date);
+      goto(date, { replaceState: true });
    }
 
    function onEdit(id: number) {

@@ -1,8 +1,6 @@
 <script lang="ts">
-   import { goto } from '$app/navigation';
    import Confirm from '$lib/Confirm.svelte';
    import { openDb } from '$lib/db';
-   import dayjs from 'dayjs';
    import DateTime from '../DateTime.svelte';
    import LogForm from '../LogForm.svelte';
    import type { PageProps } from './$types';
@@ -14,9 +12,7 @@
    let confirm: Confirm;
 
    function goBack() {
-      const date = dayjs.unix(log.timestamp)
-         .format('YYYY-MM-DD');
-      goto(`/logs/${date}`);
+      history.back();
    }
 
    function onCancel() {

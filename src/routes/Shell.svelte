@@ -8,6 +8,20 @@
       dock?: Snippet,
       navbar?: Snippet
    } = $props();
+
+   function isHome() {
+      return page.url.pathname == '/';
+   }
+
+   function isLogs() {
+      return page.url.pathname.startsWith('/logs');
+   }
+
+   function goBack() {
+      if (!isHome()) {
+         history.back();
+      }
+   }
 </script>
 
 {#if navbar}
@@ -24,17 +38,17 @@
    {#if dock}
       {@render dock()}
    {:else}
-      <a href="/" class:dock-active={page.url.pathname == '/'}>
+      <button onclick={goBack} class:dock-active={isHome()}>
          <Icon name="home" />
          <span class="dock-label">Home</span>
-      </a>
+      </button>
 
       <a href="/logs/add">
          <Icon name="plus" />
          <span class="dock-label">Add</span>
       </a>
 
-      <a href="/logs" class:dock-active={page.url.pathname.startsWith('/logs')}>
+      <a href="/logs" class:dock-active={isLogs()}>
          <Icon name="calendar" />
          <span class="dock-label">History</span>
       </a>

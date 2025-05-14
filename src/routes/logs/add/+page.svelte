@@ -1,5 +1,4 @@
 <script lang="ts">
-   import { goto } from '$app/navigation';
    import { openDb } from '$lib/db';
    import Icon from '$lib/Icon.svelte';
    import Shell from '../../Shell.svelte';
@@ -10,8 +9,8 @@
    const { data }: PageProps = $props();
    const { model } = data;
 
-   function onCancel() {
-      goto('/');
+   function goBack() {
+      history.back();
    }
 
    async function onSave() {
@@ -21,14 +20,14 @@
          await db.addLog(record);
       }
 
-      goto('/');
+      goBack()
    }
 </script>
 
 <Shell>
    {#snippet navbar()}
       <div class="navbar-start">
-         <button class="btn btn-neutral" onclick={onCancel}>Cancel</button>
+         <button class="btn btn-neutral" onclick={goBack}>Cancel</button>
       </div>
 
       <div class="navbar-center">
