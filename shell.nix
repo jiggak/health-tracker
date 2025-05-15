@@ -58,8 +58,7 @@ pkgs.mkShell {
   NDK_HOME = "${androidComposition.androidsdk}/libexec/android-sdk/ndk-bundle";
 
   shellHook = ''
-    source .env
-    export KEYSTORE_PATH
-    export KEYSTORE_PASSWORD
+    # export .env so vars appear in android gradle scripts
+    set -a; source .env; set +a
   '';
 }
