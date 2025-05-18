@@ -27,14 +27,18 @@ let
 in
 pkgs.mkShell {
   nativeBuildInputs = with pkgs; [
+    nodejs
+
+    # required by tauri
     pkg-config
     gobject-introspection
-    nodejs
-    # java required by android stuff
+
+    # java required for android signing tool
     jdk21_headless
   ];
 
   buildInputs = with pkgs; [
+    # libraries required for tauri desktop app
     at-spi2-atk
     atkmm
     cairo
@@ -47,6 +51,8 @@ pkgs.mkShell {
     pango
     webkitgtk_4_1
     openssl
+
+    # android sdk for building tauri android app
     androidComposition.androidsdk
   ];
 
@@ -59,6 +65,6 @@ pkgs.mkShell {
 
   shellHook = ''
     # export .env so vars appear in android gradle scripts
-    set -a; source .env; set +a
+    set -o allexport; source .env; set +o allexport
   '';
 }
