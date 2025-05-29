@@ -3,7 +3,7 @@ let
 
   pkgs = import <nixpkgs> {
     overlays = [(import rust-overlay)];
-    # required for android stuff
+    # required for android sdk
     config.android_sdk.accept_license = true;
     config.allowUnfree = true;
   };
@@ -35,6 +35,9 @@ pkgs.mkShell {
 
     # java required for android signing tool
     jdk21_headless
+
+    # android sdk for building tauri android app
+    androidComposition.androidsdk
   ];
 
   buildInputs = with pkgs; [
@@ -51,9 +54,6 @@ pkgs.mkShell {
     pango
     webkitgtk_4_1
     openssl
-
-    # android sdk for building tauri android app
-    androidComposition.androidsdk
   ];
 
   packages = [
