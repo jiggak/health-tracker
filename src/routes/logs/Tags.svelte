@@ -64,7 +64,12 @@
    <detail class="dropdown" class:dropdown-open={results.length > 0}>
       <ul class="dropdown-content menu rounded-box bg-base-200 w-full">
          {#each results as tag}
-            <li><button onclick={() => toggleTag(tag)}>{tag}</button></li>
+            <li class="py-1">
+               <button class="btn btn-neutral btn-block"
+                  onclick={() => toggleTag(tag)}>
+                  {tag}
+               </button>
+            </li>
          {/each}
       </ul>
    </detail>
