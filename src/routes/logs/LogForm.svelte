@@ -7,6 +7,7 @@
    import Favourites from './Favourites.svelte';
    import { openDb } from '$lib/db';
    import Recents from './Recents.svelte';
+   import { Accordion, AccordionGroup } from '$lib/accordion';
 
    let { entry }: {
       entry: LogEntry
@@ -33,6 +34,14 @@
    async function updateMetric() {
       const db = await openDb();
       await db.putMetric($state.snapshot(entry.metric));
+   }
+
+   let tab = $state(['fav']);
+
+   function onAccordionClick(id:string) {
+      if (tab.length > 0) {
+         tab = [id];
+      }
    }
 </script>
 
@@ -75,9 +84,33 @@
          onValuesChanged={(tags) => entry.tags = tags} />
    {/if}
 
-   {#if entry.metric.favourites}
+   <AccordionGroup>
+      {#if entry.metric.favourites}
+         <Accordion name="Favourites">
+            <Favourites
+               metric={entry.metric}
+               favourites={entry.metric.favourites}
+               onFavouritesChanged={async (v) => await setFavourites(v)}
+               onFavouriteClick={(v) => { entry.value = v.value; entry.tags = v.tags; }}/>
+
+            <button class="btn btn-neutral mt-4" onclick={addFavourite}>
+               Add to favourites
+            </button>
+         </Accordion>
+      {/if}
+      {#if entry.metric.recent}
+         <Accordion name="Recent">
+            <Recents
+               count={entry.metric.recent}
+               metricKey={entry.metric.key}
+               onRecentClick={(v) => { entry.value = v.value; entry.tags = v.tags; }}/>
+         </Accordion>
+      {/if}
+   </AccordionGroup>
+
+   <!-- {#if entry.metric.favourites}
       <div class="collapse collapse-arrow border border-base-300">
-         <input type="radio" name="accordian" checked />
+         <input type="checkbox" onchange={() => onAccordionClick('fav')} value="fav" bind:group={tab} />
          <div class="collapse-title font-semibold">Favourites</div>
          <div class="collapse-content">
             <Favourites
@@ -95,7 +128,7 @@
 
    {#if entry.metric.recent}
       <div class="collapse collapse-arrow border border-base-300">
-         <input type="radio" name="accordian" />
+         <input type="checkbox" onchange={() => onAccordionClick('recent')} value="recent" bind:group={tab} />
          <div class="collapse-title font-semibold">Recent</div>
          <div class="collapse-content">
             <Recents
@@ -104,5 +137,5 @@
                onRecentClick={(v) => { entry.value = v.value; entry.tags = v.tags; }}/>
          </div>
       </div>
-   {/if}
+   {/if} -->
 </div>
