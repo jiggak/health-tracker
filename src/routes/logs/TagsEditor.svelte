@@ -57,7 +57,7 @@
       <div class="join w-full p-2">
          <input bind:this={newTag}
             onkeydown={onNewTagKeyPress}
-            class="input input-bordered join-item w-full"
+            class="input join-item w-full"
             placeholder="New tag" />
 
          <button

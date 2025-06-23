@@ -9,14 +9,14 @@ export const load: PageLoad = async () => {
    const tiles: Tile[] = [
       {
          type: TileType.LineChart,
-         days: 7,
-         dateFormat: 'ddd',
+         defaultDays: 7,
+         dateFormat: 'ddd D',
          dataSources: [
             {
                metric: 'stool',
                valueKey: 'volume',
                label: 'Stool Volume',
-               scale: 5
+               scale: 3
             },
             {
                metric: 'sleep',
@@ -31,7 +31,8 @@ export const load: PageLoad = async () => {
          if (t.type == TileType.LineChart) {
             return {
                type: TileType.LineChart,
-               data: loadLineChart(db, t)
+               days: t.defaultDays,
+               load: (days: number) => loadLineChart(db, t, days)
             };
          } else {
             throw `Unhandled tile type: ${t.type}`;
@@ -40,11 +41,11 @@ export const load: PageLoad = async () => {
    }
 }
 
-async function loadLineChart(db: DataStore, tile: LineChartTile): Promise<LineChartOpts> {
-   const labels = daysRange(tile.days, tile.dateFormat);
+async function loadLineChart(db: DataStore, tile: LineChartTile, days: number): Promise<LineChartOpts> {
+   const labels = daysRange(days, tile.dateFormat);
 
    const end = dayjs().endOf('day');
-   const start = end.add(-tile.days, 'day');
+   const start = end.add(-days, 'day');
 
    const logs = await db.listLogs(start.unix(), end.unix());
 
@@ -115,7 +116,7 @@ interface TileCommon {
 
 interface LineChartTile extends TileCommon {
    type: TileType.LineChart;
-   days: number;
+   defaultDays: number;
    dateFormat: string;
    dataSources: DataSource[];
 }

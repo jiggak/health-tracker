@@ -15,6 +15,7 @@
       faPencil,
       faPoop,
       faTriangleExclamation,
+      faMinus,
       type IconDefinition
    } from '@fortawesome/free-solid-svg-icons';
    import { type IconName } from '$lib';
@@ -47,7 +48,8 @@
       'medicine': faPrescriptionBottleMedical,
       'moon': faMoon,
       'search': faMagnifyingGlass,
-      'clear': faCircleXmark
+      'clear': faCircleXmark,
+      'minus': faMinus
    };
 
    const {
