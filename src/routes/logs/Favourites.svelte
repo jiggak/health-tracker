@@ -18,10 +18,31 @@
          onFavouritesChanged(favourites.filter((f) => f != fav));
       });
    }
+
+   let results: Favourite[] | null = $state(null);
+
+   function onSearch(term: string) {
+      term = term.toLowerCase();
+      if (term) {
+         results = favourites.filter(
+            (f) => f.value.toString().toLowerCase().includes(term)
+         );
+      } else {
+         results = null;
+      }
+   }
 </script>
 
+<label class="input w-full">
+   <Icon name="search" />
+   <input type="search"
+      class="grow"
+      placeholder="Search favourites"
+      oninput={(e) => onSearch(e.currentTarget.value)} />
+</label>
+
 <ul class="list rounded-box shadow-md">
-   {#each favourites as fav}
+   {#each (results? results : favourites) as fav}
       <li class="list-row">
          <button class="list-col-grow text-left cursor-pointer"
             onclick={() => onFavouriteClick(fav)}>
