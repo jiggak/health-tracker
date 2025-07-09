@@ -65,7 +65,7 @@
       <ul class="dropdown-content menu rounded-box bg-base-200 w-full">
          {#each results as tag}
             <li class="py-1">
-               <button class="btn btn-neutral btn-block"
+               <button class="btn btn-soft btn-primary btn-block"
                   onclick={() => toggleTag(tag)}>
                   {tag}
                </button>
@@ -87,7 +87,7 @@
    {/each}
 
    <button
-      class="btn badge badge-primary badge-dash"
+      class="btn badge badge-outline badge-primary"
       onclick={() => tagsEditor.open(tags)}>
 
       Add/Edit Tags
