@@ -44,7 +44,14 @@
    function onSearch(term: string) {
       term = term.toLowerCase();
       if (term) {
-         results = tags.filter((t) => t.toLowerCase().includes(term));
+         const strongMatches = tags
+            .filter((t) => t.toLowerCase().startsWith(term));
+
+         const weakMatches = tags
+            .filter((t) => !strongMatches.includes(t))
+            .filter((t) => t.toLowerCase().includes(term));
+
+         results = [...strongMatches, ...weakMatches];
       } else {
          results = [];
       }
