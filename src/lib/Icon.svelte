@@ -16,6 +16,8 @@
       faPoop,
       faTriangleExclamation,
       faMinus,
+      faPalette,
+      faCaretDown,
       type IconDefinition
    } from '@fortawesome/free-solid-svg-icons';
    import { type IconName } from '$lib';
@@ -49,7 +51,9 @@
       'moon': faMoon,
       'search': faMagnifyingGlass,
       'clear': faCircleXmark,
-      'minus': faMinus
+      'minus': faMinus,
+      'palette': faPalette,
+      'down-arrow': faCaretDown
    };
 
    const {

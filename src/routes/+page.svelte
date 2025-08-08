@@ -3,12 +3,20 @@
    import type { PageProps } from './$types';
    import Shell from './Shell.svelte';
    import Number from '$lib/Number.svelte';
+   import ThemeSelector from './ThemeSelector.svelte';
 
    const { data }: PageProps = $props();
    const { tiles } = $state(data);
 </script>
 
 <Shell>
+   {#snippet navbar()}
+      <div class="navbar-start"></div>
+      <div class="navbar-end">
+         <ThemeSelector />
+      </div>
+   {/snippet}
+
    {#each tiles as tile}
       {#if tile.type == 'line-chart'}
          {#await tile.load(tile.days)}

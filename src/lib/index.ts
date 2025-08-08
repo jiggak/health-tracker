@@ -2,7 +2,8 @@
 
 export type IconName = 'home' | 'plus' | 'calendar' | 'trash' | 'pencil' |
    'exclamation' | 'arrow-left' | 'arrow-right' | 'poop' | 'carrot' |
-   'medicine' | 'moon' | 'book' | 'search' | 'clear' | 'minus';
+   'medicine' | 'moon' | 'book' | 'search' | 'clear' | 'minus' | 'palette' |
+   'down-arrow';
 
 interface MetricCommon {
    key: string;
